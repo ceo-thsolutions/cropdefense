@@ -48,8 +48,8 @@ const Hero = () => {
   ];
 
   const millingCrops = [
-    { name: 'Rice', image: 'https://images.pexels.com/photos/33239/rice-field-vietnam-agriculture.jpg?auto=compress&cs=tinysrgb&w=400' },
-    { name: 'Cotton', image: 'https://images.pexels.com/photos/6129507/pexels-photo-6129507.jpeg?auto=compress&cs=tinysrgb&w=400' },
+    { name: 'Rice', image: 'https://images.pexels.com/photos/2589457/pexels-photo-2589457.jpeg?auto=compress&cs=tinysrgb&w=400' },
+    { name: 'Cotton', image: 'https://images.pexels.com/photos/5640079/pexels-photo-5640079.jpeg?auto=compress&cs=tinysrgb&w=400' },
     { name: 'Alfalfa', image: 'https://images.pexels.com/photos/2132250/pexels-photo-2132250.jpeg?auto=compress&cs=tinysrgb&w=400' },
   ];
 
@@ -162,7 +162,7 @@ const Hero = () => {
               </div>
             </div>
 
-            <Button variant="outline" size="lg">
+            <Button variant="outline" size="lg" onClick={() => window.open('/us/compactability.pdf', '_blank')}>
               Check Chemical Compatibility Doc
               <FileText className="ml-2 h-5 w-5" />
             </Button>
@@ -222,92 +222,241 @@ const Hero = () => {
         </div>
       </section>
 
-      {/* Crops Tested */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-12">Crops Tested</h2>
-            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
-              {testedCrops.map((crop, index) => (
-                <div
-                  key={index}
-                  className="bg-gray-50 rounded-lg p-4 text-center hover:bg-primary hover:text-white transition-colors duration-200 cursor-pointer"
-                >
-                  <span className="text-sm font-medium">{crop}</span>
-                </div>
-              ))}
+   {/* Crops Tested */}
+{/* Crops Tested */}
+<section className="py-20 bg-white">
+  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="text-center mb-16">
+      <h2 className="text-4xl font-bold text-gray-900 mb-12">Crops Tested</h2>
+      
+      <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+        {testedCrops.map((crop, index) => (
+          <div
+            key={index}
+            className="group bg-gray-50 rounded-2xl p-6 text-center 
+                       hover:bg-primary hover:shadow-lg transition-all duration-300 cursor-pointer
+                       border border-gray-100 hover:border-primary
+                       hover:-translate-y-1 transform"
+          >
+            {/* Tick Icon */}
+            <div className="mb-4 flex justify-center">
+              <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center
+                              shadow-sm group-hover:shadow-md transition-all duration-300">
+                <svg className="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+              </div>
             </div>
+
+            {/* Crop Name */}
+            <span className="text-sm font-medium text-black">
+              {crop}
+            </span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+{/* Contact Form */}
+<section className="py-24 bg-gradient-to-br from-primary via-primary to-primary/90 relative overflow-hidden">
+  {/* Background pattern */}
+  <div className="absolute inset-0 opacity-10">
+    <div className="absolute inset-0" style={{
+      backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`
+    }}></div>
+  </div>
+
+  <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+    <div className="text-center mb-16">
+      <div className="inline-flex items-center justify-center w-16 h-16 bg-white/10 backdrop-blur-sm rounded-2xl mb-6">
+        <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+        </svg>
+      </div>
+      <h2 className="text-5xl font-bold text-black mb-6 leading-tight">
+        Ready to Transform <br />
+        <span className="text-black/80">Your Agriculture?</span>
+      </h2>
+      <p className="text-xl text-black/80 max-w-3xl mx-auto">
+        Inquire about samples or full scale application. Let's discuss how our innovative solutions can benefit your crops.
+      </p>
+    </div>
+
+    <div className="bg-white/95 backdrop-blur-xl rounded-3xl p-8 md:p-12 shadow-2xl border border-white/20">
+      {isSubmitted ? (
+        <div className="text-center py-12">
+          <div className="w-20 h-20 bg-gradient-to-br from-green-400 to-green-600 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
+            <Check className="h-10 w-10 text-white" />
+          </div>
+          <h3 className="text-3xl font-bold text-gray-900 mb-4">Message Sent Successfully!</h3>
+          <p className="text-lg text-gray-600 mb-8">Thank you for reaching out. We'll get back to you within 24 hours.</p>
+          <div className="inline-flex items-center space-x-2 text-primary font-medium">
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+            </svg>
+            <span>We've received your inquiry</span>
           </div>
         </div>
-      </section>
-
-      {/* Contact Form */}
-      <section className="py-20 bg-primary">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold text-white mb-4">
-              Inquire about samples or full scale application
-            </h2>
-          </div>
-
-          <div className="bg-white rounded-xl p-8 shadow-2xl">
-            {isSubmitted ? (
-              <div className="text-center py-8">
-                <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Check className="h-8 w-8 text-green-600" />
-                </div>
-                <h3 className="text-2xl font-semibold text-gray-900 mb-2">Thanks for submitting!</h3>
-                <p className="text-gray-600">We'll get back to you soon.</p>
-              </div>
-            ) : (
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <Input
-                    label="First Name"
-                    name="firstName"
-                    value={formData.firstName}
-                    onChange={handleInputChange}
-                    required
-                  />
-                  <Input
-                    label="Last Name"
-                    name="lastName"
-                    value={formData.lastName}
-                    onChange={handleInputChange}
-                    required
-                  />
-                </div>
-                <Input
-                  label="Email"
-                  type="email"
-                  name="email"
-                  value={formData.email}
+      ) : (
+        <form onSubmit={handleSubmit} className="space-y-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="space-y-2">
+              <label className="block text-sm font-semibold text-gray-700">
+                First Name *
+              </label>
+              <div className="relative">
+                <input
+                  type="text"
+                  name="firstName"
+                  value={formData.firstName}
                   onChange={handleInputChange}
+                  className="w-full px-4 py-4 bg-gray-50 border-2 border-gray-200 rounded-xl 
+                           focus:outline-none focus:ring-0 focus:border-primary focus:bg-white
+                           transition-all duration-200 text-gray-900 placeholder-gray-500"
+                  placeholder="Enter your first name"
                   required
                 />
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Message
-                  </label>
-                  <textarea
-                    name="message"
-                    value={formData.message}
-                    onChange={handleInputChange}
-                    rows={4}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-colors"
-                    required
-                  />
+                <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                  <svg className="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                  </svg>
                 </div>
-                <div className="text-center">
-                  <Button type="submit" size="lg">
-                    Send Message
-                  </Button>
+              </div>
+            </div>
+
+            <div className="space-y-2">
+              <label className="block text-sm font-semibold text-gray-700">
+                Last Name *
+              </label>
+              <div className="relative">
+                <input
+                  type="text"
+                  name="lastName"
+                  value={formData.lastName}
+                  onChange={handleInputChange}
+                  className="w-full px-4 py-4 bg-gray-50 border-2 border-gray-200 rounded-xl 
+                           focus:outline-none focus:ring-0 focus:border-primary focus:bg-white
+                           transition-all duration-200 text-gray-900 placeholder-gray-500"
+                  placeholder="Enter your last name"
+                  required
+                />
+                <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                  <svg className="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                  </svg>
                 </div>
-              </form>
-            )}
+              </div>
+            </div>
           </div>
+
+          <div className="space-y-2">
+            <label className="block text-sm font-semibold text-gray-700">
+              Email Address *
+            </label>
+            <div className="relative">
+              <input
+                type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleInputChange}
+                className="w-full px-4 py-4 bg-gray-50 border-2 border-gray-200 rounded-xl 
+                         focus:outline-none focus:ring-0 focus:border-primary focus:bg-white
+                         transition-all duration-200 text-gray-900 placeholder-gray-500"
+                placeholder="your.email@example.com"
+                required
+              />
+              <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                <svg className="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                </svg>
+              </div>
+            </div>
+          </div>
+
+          <div className="space-y-2">
+            <label className="block text-sm font-semibold text-gray-700">
+              Your Message *
+            </label>
+            <textarea
+              name="message"
+              value={formData.message}
+              onChange={handleInputChange}
+              rows={5}
+              className="w-full px-4 py-4 bg-gray-50 border-2 border-gray-200 rounded-xl 
+                       focus:outline-none focus:ring-0 focus:border-primary focus:bg-white
+                       transition-all duration-200 text-gray-900 placeholder-gray-500 resize-none"
+              placeholder="Tell us about your project, crop type, scale of application, or any specific questions you have..."
+              required
+            />
+            <div className="text-xs text-gray-500 text-right">
+              {formData.message.length}/500 characters
+            </div>
+          </div>
+
+          <div className="flex flex-col sm:flex-row items-center justify-between pt-6 space-y-4 sm:space-y-0">
+            {/* <div className="flex items-center space-x-2 text-sm text-gray-600">
+              <svg className="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <span>We typically respond within 24 hours</span>
+            </div> */}
+            
+            <button
+              type="submit"
+              className="group bg-black relative px-8 py-4 bg-gradient-to-r from-primary to-primary/90 
+                       text-white font-semibold rounded-xl shadow-lg hover:shadow-xl 
+                       hover:shadow-primary/25 transition-all duration-200 
+                       hover:-translate-y-0.5 focus:outline-none focus:ring-4 focus:ring-primary/20
+                       disabled:opacity-50 disabled:cursor-not-allowed min-w-[200px]"
+            >
+              <span className="relative flex items-center justify-center space-x-2">
+                <span>Send Message</span>
+                {/* <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+                </svg> */}
+              </span>
+            </button>
+          </div>
+        </form>
+      )}
+    </div>
+
+    {/* Contact info cards */}
+    {/* <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 text-center border border-white/20">
+        <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center mx-auto mb-4">
+          <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
         </div>
-      </section>
+        <h3 className="text-lg font-semibold text-white mb-2">Quick Response</h3>
+        <p className="text-white/80 text-sm">24-hour response guarantee</p>
+      </div>
+
+      <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 text-center border border-white/20">
+        <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center mx-auto mb-4">
+          <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+        </div>
+        <h3 className="text-lg font-semibold text-white mb-2">Expert Support</h3>
+        <p className="text-white/80 text-sm">Agricultural specialists ready to help</p>
+      </div>
+
+      <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 text-center border border-white/20">
+        <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center mx-auto mb-4">
+          <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+          </svg>
+        </div>
+        <h3 className="text-lg font-semibold text-white mb-2">Custom Solutions</h3>
+        <p className="text-white/80 text-sm">Tailored to your specific needs</p>
+      </div>
+    </div> */}
+  </div>
+</section>
     </div>
   );
 };

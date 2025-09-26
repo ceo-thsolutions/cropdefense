@@ -1,8 +1,9 @@
 "use client";
 
 import React, { useState } from 'react';
-import { ChevronRight, Thermometer, Droplets, Sprout, Users, MapPin, Calendar, FlaskConical, TrendingUp } from 'lucide-react';
+import { ChevronRight, Thermometer, Droplets, Sprout, Users, MapPin, Calendar, FlaskConical,ThumbsUp, TrendingUp } from 'lucide-react';
 import Button from '../../../components/UI/Button';
+import Link from "next/link";
 
 const Story = () => {
   const [activeSection, setActiveSection] = useState(0);
@@ -21,6 +22,13 @@ const Story = () => {
       description: "Breakthrough research on plant adaptation in geothermal conditions",
       icon: FlaskConical,
       color: "blue"
+    },
+        {
+      year: "2022",
+      title: "Commercialization",
+      description: "Crop Defense was developed for commercial use",
+      icon: ThumbsUp,
+      color: "purple"
     },
     {
       year: "Present",
@@ -286,14 +294,17 @@ const Story = () => {
             </p>
             
 <div className="flex flex-col sm:flex-row gap-6 justify-center">
+  <Link href="/contact">
   <Button variant="outline" size="lg" className="bg-black text-white hover:bg-black/90 hover:text-white-900 border-0">
     Let's Work Together
     <Users className="ml-2 h-5 w-5" />
-  </Button>
+  </Button></Link>
+  
+  <Link href="/store">
   <Button variant="outline" size="lg" className="border-gray-300 text-gray-900 bg-white hover:bg-black hover:text-white-900">
     See Our Products
     <ChevronRight className="ml-2 h-5 w-5" />
-  </Button>
+  </Button></Link>
 </div>
           </div>
 

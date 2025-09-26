@@ -10,6 +10,20 @@ module.exports = {
     "./src/modules/**/*.{js,ts,jsx,tsx}",
     "./node_modules/@medusajs/ui/dist/**/*.{js,jsx,ts,tsx}",
   ],
+    safelist: [
+    "bg-red-500",
+    "bg-blue-500",
+    "bg-purple-500",
+    "bg-green-500",
+    "border-red-500",
+    "border-blue-500",
+    "border-purple-500",
+    "border-green-500",
+    "text-red-600",
+    "text-blue-600",
+    "text-purple-600",
+    "text-green-600",
+  ],
   theme: {
     extend: {
       transitionProperty: {

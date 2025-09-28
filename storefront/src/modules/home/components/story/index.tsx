@@ -108,11 +108,21 @@ const Story = () => {
                   <event.icon className="h-6 w-6 text-white" />
                 </div>
                 
-                <div className={`bg-white rounded-xl p-8 shadow-lg border-l-4 border-${event.color}-500 hover:shadow-xl transition-shadow duration-300`}>
-                  <div className={`text-sm font-semibold text-${event.color}-600 mb-2`}>{event.year}</div>
-                  <h3 className="text-2xl font-bold text-gray-900 mb-4">{event.title}</h3>
-                  <p className="text-gray-600 leading-relaxed">{event.description}</p>
-                </div>
+<div
+  className={`bg-white rounded-xl p-6 sm:p-8 shadow-lg border-l-4 border-${event.color}-500 hover:shadow-xl transition-shadow duration-300`}
+>
+  <div className={`text-xs sm:text-sm font-semibold text-${event.color}-600 mb-2`}>
+    {event.year}
+  </div>
+
+  <h3
+    className="text-sm sm:text-xl md:text-2xl font-bold text-gray-900 mb-4 break-words hyphens-auto"
+  >
+    {event.title}
+  </h3>
+
+  <p className="text-xs sm:text-base text-gray-600 leading-relaxed">{event.description}</p>
+</div>
               </div>
             ))}
           </div>

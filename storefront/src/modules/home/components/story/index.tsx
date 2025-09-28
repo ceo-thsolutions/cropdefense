@@ -88,46 +88,65 @@ const Story = () => {
         </div>
       </section>
 
-      {/* Timeline Section */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-6">The Journey of Discovery</h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              From crisis to breakthrough - the remarkable story behind CropDefense™
-            </p>
+{/* Timeline Section */}
+<section className="py-20 bg-white">
+  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="text-center mb-16">
+      <h2 className="text-4xl font-bold text-gray-900 mb-6">The Journey of Discovery</h2>
+      <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+        From crisis to breakthrough - the remarkable story behind CropDefense™
+      </p>
+    </div>
+
+    {/* MOBILE TIMELINE - Show only on mobile */}
+    <div className="relative block sm:hidden">
+      {/* Mobile Timeline Line */}
+      <div className="absolute left-6 w-1 h-full bg-gradient-to-b from-red-200 via-blue-200 to-green-200"></div>
+      
+      {timelineEvents.map((event, index) => (
+        <div key={index} className="relative mb-16 pl-16 w-full text-left">
+          <div className={`absolute top-1/2 transform -translate-y-1/2 left-0 w-12 h-12 rounded-full bg-${event.color}-500 flex items-center justify-center shadow-lg z-10`}>
+            <event.icon className="h-6 w-6 text-white" />
           </div>
-
-          <div className="relative">
-            {/* Timeline Line */}
-            <div className="absolute left-1/2 transform -translate-x-0.5 w-1 h-full bg-gradient-to-b from-red-200 via-blue-200 to-green-200"></div>
-            
-            {timelineEvents.map((event, index) => (
-              <div key={index} className={`relative mb-16 ${index % 2 === 0 ? 'text-right pr-8' : 'text-left pl-8 ml-auto'} w-1/2`}>
-                <div className={`absolute top-1/2 transform -translate-y-1/2 ${index % 2 === 0 ? '-right-6' : '-left-6'} w-12 h-12 rounded-full bg-${event.color}-500 flex items-center justify-center shadow-lg z-10`}>
-                  <event.icon className="h-6 w-6 text-white" />
-                </div>
-                
-<div
-  className={`bg-white rounded-xl p-6 sm:p-8 shadow-lg border-l-4 border-${event.color}-500 hover:shadow-xl transition-shadow duration-300`}
->
-  <div className={`text-xs sm:text-sm font-semibold text-${event.color}-600 mb-2`}>
-    {event.year}
-  </div>
-
-  <h3
-    className="text-sm sm:text-xl md:text-2xl font-bold text-gray-900 mb-4 break-words hyphens-auto"
-  >
-    {event.title}
-  </h3>
-
-  <p className="text-xs sm:text-base text-gray-600 leading-relaxed">{event.description}</p>
-</div>
-              </div>
-            ))}
+          
+          <div className={`bg-white rounded-xl p-4 shadow-lg border-l-4 border-${event.color}-500 hover:shadow-xl transition-shadow duration-300`}>
+            <div className={`text-xs font-semibold text-${event.color}-600 mb-2`}>
+              {event.year}
+            </div>
+            <h3 className="text-sm font-bold text-gray-900 mb-4 break-words hyphens-auto">
+              {event.title}
+            </h3>
+            <p className="text-xs text-gray-600 leading-relaxed">{event.description}</p>
           </div>
         </div>
-      </section>
+      ))}
+    </div>
+
+    {/* DESKTOP/TABLET TIMELINE - Your original code - Show on sm and above */}
+    <div className="relative hidden sm:block">
+      {/* Timeline Line */}
+      <div className="absolute left-1/2 transform -translate-x-0.5 w-1 h-full bg-gradient-to-b from-red-200 via-blue-200 to-green-200"></div>
+      
+      {timelineEvents.map((event, index) => (
+        <div key={index} className={`relative mb-16 ${index % 2 === 0 ? 'text-right pr-8' : 'text-left pl-8 ml-auto'} w-1/2`}>
+          <div className={`absolute top-1/2 transform -translate-y-1/2 ${index % 2 === 0 ? '-right-6' : '-left-6'} w-12 h-12 rounded-full bg-${event.color}-500 flex items-center justify-center shadow-lg z-10`}>
+            <event.icon className="h-6 w-6 text-white" />
+          </div>
+          
+          <div className={`bg-white rounded-xl p-2 sm:p-6 shadow-lg border-l-4 border-${event.color}-500 hover:shadow-xl transition-shadow duration-300`}>
+            <div className={`text-xs sm:text-sm font-semibold text-${event.color}-600 mb-2`}>
+              {event.year}
+            </div>
+            <h3 className="text-sm sm:text-xl md:text-2xl font-bold text-gray-900 mb-4 break-words hyphens-auto">
+              {event.title}
+            </h3>
+            <p className="text-xs sm:text-base text-gray-600 leading-relaxed">{event.description}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
 
 {/* Environmental Challenges Section */}
 <section className="py-20 bg-gray-50">

@@ -21,13 +21,13 @@ const Register = ({ setCurrentView }: Props) => {
       className="max-w-sm flex flex-col items-center"
       data-testid="register-page"
     >
-      <h1 className="text-large-semi uppercase mb-6">
-        Become a Medusa Store Member
-      </h1>
-      <p className="text-center text-base-regular text-ui-fg-base mb-4">
-        Create your Medusa Store Member profile, and get access to an enhanced
-        shopping experience.
-      </p>
+<h1 className="text-large-semi uppercase mb-6">
+  Become a CropDefense Member
+</h1>
+<p className="text-center text-base-regular text-ui-fg-base mb-4">
+  Create your CropDefense Member profile, and get access to an enhanced
+  shopping experience.
+</p>
       <form className="w-full flex flex-col" action={formAction}>
         <div className="flex flex-col w-full gap-y-2">
           <Input

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from 'react';
-import { ChevronRight, Thermometer, Droplets, Sprout, Users, MapPin, Calendar, FlaskConical,ThumbsUp, TrendingUp } from 'lucide-react';
+import { ChevronRight, Thermometer, Droplets, Sprout, Users,Microscope,  MapPin, Calendar, FlaskConical,ThumbsUp, TrendingUp, Search } from 'lucide-react';
 import Button from '../../../components/UI/Button';
 import Link from "next/link";
 
@@ -10,9 +10,9 @@ const Story = () => {
 
   const timelineEvents = [
     {
-      year: "2000-2023",
+      year: "2000-2025",
       title: "Environmental Crisis",
-      description: "23 of the past 24 years experienced extreme drought and heat stress",
+      description: "Shifting weather patterns threaten farms with extreme drought and heat stress",
       icon: Thermometer,
       color: "red"
     },
@@ -20,8 +20,22 @@ const Story = () => {
       year: "2002",
       title: "The Discovery",
       description: "Breakthrough research on plant adaptation in geothermal conditions",
-      icon: FlaskConical,
+      icon: Search,
       color: "blue"
+    },
+            {
+      year: "2003 - 2020",
+      title: "Trails and Studies",
+      description: "Rigorous testing is conducted exploring the relationship between microorganisms and plant life",
+      icon: Microscope,
+      color: "red"
+    },
+            {
+      year: "2021",
+      title: "Formulation",
+      description: "Our Proprietary formulation is developed combining the most effective symbiotic microorganisms",
+      icon: FlaskConical,
+      color: "green"
     },
         {
       year: "2022",
@@ -66,7 +80,7 @@ const Story = () => {
       <section 
         className="relative h-screen flex items-center justify-center bg-cover bg-center bg-no-repeat"
         style={{
-          backgroundImage: 'linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.8)), url(https://images.pexels.com/photos/2681673/pexels-photo-2681673.jpeg?auto=compress&cs=tinysrgb&w=1600)',
+          backgroundImage: 'linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.8)), url(https://images.pexels.com/photos/1595104/pexels-photo-1595104.jpeg?auto=compress&cs=tinysrgb&w=1600)',
         }}
       >
         <div className="text-center text-white max-w-5xl mx-auto px-4">

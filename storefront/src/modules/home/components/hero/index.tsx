@@ -72,7 +72,7 @@ const Hero = () => {
       <section 
         className="relative h-screen flex items-center justify-center bg-cover bg-center bg-no-repeat"
         style={{
-          backgroundImage: 'linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)), url(https://images.pexels.com/photos/1595104/pexels-photo-1595104.jpeg?auto=compress&cs=tinysrgb&w=1600)',
+          backgroundImage: 'linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)), url(https://images.pexels.com/photos/2681673/pexels-photo-2681673.jpeg?auto=compress&cs=tinysrgb&w=1600)',
         }}
       >
         <div className="text-center text-white max-w-4xl mx-auto px-4">
@@ -82,7 +82,7 @@ const Hero = () => {
           <p className="text-xl md:text-2xl mb-8 leading-relaxed animate-slide-up">
             Our OMRI certified microbial seed + plant treatment increases crop yields up to 70% on both organic and conventional crops alike. It improves nutrient density and tolerance to environmental stressors, such as extreme temperatures, drought, and infertile soil.
           </p>
-          <Button size="lg" className="animate-bounce-gentle">
+          <Button onClick={() => (window.location.href = '/story')} size="lg" className="animate-bounce-gentle">
             Learn More
             <ChevronRight className="ml-2 h-5 w-5" />
           </Button>
@@ -106,69 +106,97 @@ const Hero = () => {
         </div>
       </section>
 
-      {/* CropDefense vs Other Symbionts */}
-      <section className="py-20 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-12">CropDefense™ vs Other Symbionts</h2>
-            
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
-              {/* Benefits */}
-              <div className="bg-white rounded-xl p-8 shadow-lg">
-                <div className="flex items-center justify-center w-12 h-12 bg-green-100 rounded-lg mx-auto mb-6">
-                  <Plus className="h-6 w-6 text-green-600" />
-                </div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-6">Benefits</h3>
-                <ul className="space-y-3">
-                  {benefits.map((benefit, index) => (
-                    <li key={index} className="flex items-start">
-                      <Check className="h-5 w-5 text-green-500 mr-3 mt-0.5 flex-shrink-0" />
-                      <span className="text-gray-700">{benefit}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+{/* CropDefense vs Other Symbionts */}
+<section className="py-20 bg-gray-50">
+  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="text-center mb-16">
+      <h2 className="text-4xl font-bold text-gray-900 mb-12">
+        CropDefense™ vs Other Symbionts
+      </h2>
 
-              {/* Reductions */}
-              <div className="bg-white rounded-xl p-8 shadow-lg">
-                <div className="flex items-center justify-center w-12 h-12 bg-blue-100 rounded-lg mx-auto mb-6">
-                  <Minus className="h-6 w-6 text-blue-600" />
-                </div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-6">Reductions</h3>
-                <ul className="space-y-3">
-                  {reductions.map((reduction, index) => (
-                    <li key={index} className="flex items-start">
-                      <Minus className="h-5 w-5 text-blue-500 mr-3 mt-0.5 flex-shrink-0" />
-                      <span className="text-gray-700">{reduction}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              {/* Compatibilities */}
-              <div className="bg-white rounded-xl p-8 shadow-lg">
-                <div className="flex items-center justify-center w-12 h-12 bg-purple-100 rounded-lg mx-auto mb-6">
-                  <FileText className="h-6 w-6 text-purple-600" />
-                </div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-6">Compatibilities & Application</h3>
-                <ul className="space-y-3">
-                  {compatibilities.map((compatibility, index) => (
-                    <li key={index} className="flex items-start">
-                      <div className="w-2 h-2 bg-purple-500 rounded-full mr-3 mt-2 flex-shrink-0" />
-                      <span className="text-gray-700">{compatibility}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-
-            <Button variant="outline" size="lg" onClick={() => window.open('/us/compactability.pdf', '_blank')}>
-              Check Chemical Compatibility Doc
-              <FileText className="ml-2 h-5 w-5" />
-            </Button>
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12 text-left">
+        {/* Benefits */}
+        <div className="bg-white rounded-xl p-8 shadow-lg flex flex-col">
+          <div className="flex items-center justify-center w-14 h-14 bg-green-100 rounded-lg mx-auto mb-6">
+            <Plus className="h-6 w-6 text-green-600" />
           </div>
+          <h3 className="text-xl font-semibold text-gray-900 mb-6 text-center">
+            Benefits
+          </h3>
+          <ul className="space-y-4">
+            {benefits.map((benefit, index) => (
+              <li
+                key={index}
+                className="flex items-start gap-3 leading-relaxed text-gray-700"
+              >
+                <span className="flex-shrink-0 flex items-center justify-center h-5 w-5 mt-0.5">
+                  <Check className="h-5 w-5 text-green-500" />
+                </span>
+                <span className="flex-1">{benefit}</span>
+              </li>
+            ))}
+          </ul>
         </div>
-      </section>
+
+        {/* Reductions */}
+        <div className="bg-white rounded-xl p-8 shadow-lg flex flex-col">
+          <div className="flex items-center justify-center w-14 h-14 bg-blue-100 rounded-lg mx-auto mb-6">
+            <Minus className="h-6 w-6 text-blue-600" />
+          </div>
+          <h3 className="text-xl font-semibold text-gray-900 mb-6 text-center">
+            Reductions
+          </h3>
+          <ul className="space-y-4">
+            {reductions.map((reduction, index) => (
+              <li
+                key={index}
+                className="flex items-start gap-3 leading-relaxed text-gray-700"
+              >
+                <span className="flex-shrink-0 flex items-center justify-center h-5 w-5 mt-0.5">
+                  <Minus className="h-5 w-5 text-blue-500" />
+                </span>
+                <span className="flex-1">{reduction}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {/* Compatibilities */}
+        <div className="bg-white rounded-xl p-8 shadow-lg flex flex-col">
+          <div className="flex items-center justify-center w-14 h-14 bg-purple-100 rounded-lg mx-auto mb-6">
+            <FileText className="h-6 w-6 text-purple-600" />
+          </div>
+          <h3 className="text-xl font-semibold text-gray-900 mb-6 text-center">
+            Compatibilities & Application
+          </h3>
+          <ul className="space-y-4">
+            {compatibilities.map((compatibility, index) => (
+              <li
+                key={index}
+                className="flex items-start gap-3 leading-relaxed text-gray-700"
+              >
+                <span className="flex-shrink-0 flex items-center justify-center h-2 w-2 mt-2">
+                  <div className="w-2 h-2 bg-purple-500 rounded-full" />
+                </span>
+                <span className="flex-1">{compatibility}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+
+      <Button
+        variant="outline"
+        size="lg"
+        onClick={() => window.open("/us/compactability.pdf", "_blank")}
+        className="mx-auto flex items-center"
+      >
+        Check Chemical Compatibility Doc
+        <FileText className="ml-2 h-5 w-5" />
+      </Button>
+    </div>
+  </div>
+</section>
 
       {/* Improved Milling and Ginning */}
       <section className="py-20 bg-white">

@@ -49,7 +49,7 @@ const ClientNav: React.FC<ClientNavProps> = ({ regions, cartButton }) => {
             onClick={() => setIsWholesaleOpen(!isWholesaleOpen)}
             className="flex items-center text-gray-700 hover:text-primary transition-colors font-medium"
           >
-            Wholesale
+            About
             <ChevronDown className="ml-1 h-4 w-4" />
           </button>
           {isWholesaleOpen && (

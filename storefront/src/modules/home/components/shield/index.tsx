@@ -1,13 +1,13 @@
 "use client";
 
 import React, { useState } from 'react';
-import { 
-  ChevronRight, 
-  Check, 
-  Shield, 
-  Droplets, 
-  Thermometer, 
-  Leaf, 
+import {
+  ChevronRight,
+  Check,
+  Shield,
+  Droplets,
+  Thermometer,
+  Leaf,
   AlertTriangle,
   Info,
   Package,
@@ -32,17 +32,17 @@ const CDShield = () => {
   const benefits = [
     {
       icon: <Leaf className="h-6 w-6" />,
-      title: "Higher Tolerance to Abiotic Stress",
+      title: "Higher Stress Tolerance",
       description: "Protects crops from extreme temperatures, drought, and salt stress"
     },
     {
       icon: <Droplets className="h-6 w-6" />,
-      title: "Increased Nutrient Use Efficiency",
+      title: "Increased Nutrient Absorption",
       description: "Optimizes nutrient uptake and utilization for better crop performance"
     },
     {
       icon: <Award className="h-6 w-6" />,
-      title: "Enhanced Crop Yields",
+      title: "Greater Crop Yields",
       description: "Proven to significantly increase overall crop productivity"
     }
   ];
@@ -79,7 +79,7 @@ const CDShield = () => {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
-      <section 
+      <section
         className="relative h-screen flex items-center justify-center bg-cover bg-center bg-no-repeat"
         style={{
           backgroundImage: 'linear-gradient(rgba(0, 100, 0, 0.7), rgba(0, 50, 0, 0.8)), url(https://images.pexels.com/photos/1595104/pexels-photo-1595104.jpeg?auto=compress&cs=tinysrgb&w=1600)',
@@ -96,8 +96,8 @@ const CDShield = () => {
             <span className="block text-4xl md:text-6xl text-green-200 mt-2">Shield</span>
           </h1>
           <p className="text-xl md:text-2xl mb-8 leading-relaxed animate-slide-up max-w-4xl mx-auto">
-            An endophytic inoculant which establishes a beneficial symbiosis with treated plants, 
-            increasing crop yields and tolerance to abiotic stress.
+            An endophytic inoculant which establishes a beneficial symbiosis with treated plants,
+            increasing crop yields and tolerance to environmental stress.
           </p>
           {/* <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button size="lg" className="animate-bounce-gentle bg-green-600 hover:bg-green-700">
@@ -120,10 +120,10 @@ const CDShield = () => {
                 Advanced Crop Protection Technology
               </h2>
               <p className="text-lg text-gray-700 mb-8 leading-relaxed">
-                CropDefense™ Shield is designed to increase crop yields and tolerance to abiotic stress 
-                including extreme temperatures, drought, salt stress, and nutrient deficiencies. Shield 
-                achieves this by forming a symbiotic relationship, which lends treated plants a reduced 
-                reactive oxygen species (ROS) response to abiotic stress.
+                CropDefense™ Shield is designed to increase crop yields and tolerance to environmental stress
+                including extreme temperatures, drought, salt stress, and nutrient deficiencies. Shield
+                achieves this by forming a symbiotic relationship, which lends treated plants a reduced
+                reactive oxygen species (ROS) response to environmental stress.
               </p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <div className="flex items-center">
@@ -165,7 +165,7 @@ const CDShield = () => {
               Discover how CropDefense™ Shield transforms your agricultural operations
             </p>
           </div>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {benefits.map((benefit, index) => (
               <div key={index} className="bg-white rounded-xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300">
@@ -192,8 +192,8 @@ const CDShield = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {applicationMethods.map((method, index) => (
-              <div 
-                key={index} 
+              <div
+                key={index}
                 className="bg-gradient-to-br from-green-50 to-blue-50 rounded-xl p-8 hover:shadow-lg transition-all duration-300 cursor-pointer"
                 onClick={() => toggleSection(`method-${index}`)}
               >
@@ -202,16 +202,16 @@ const CDShield = () => {
                 </div>
                 <h3 className="text-xl font-semibold text-gray-900 mb-4">{method.title}</h3>
                 <p className="text-gray-600 mb-4">{method.description}</p>
-                
+
                 {expandedSection === `method-${index}` && (
                   <div className="mt-4 p-4 bg-white rounded-lg">
                     <p className="text-sm text-gray-700">{method.details}</p>
                   </div>
                 )}
-                
-                <Button 
-                  variant="outline" 
-                  size="sm" 
+
+                <Button
+                  variant="outline"
+                  size="sm"
                   className="mt-4 border-green-500 text-green-600 hover:bg-green-500 hover:text-white"
                 >
                   {expandedSection === `method-${index}` ? 'Less Info' : 'More Info'}
@@ -235,7 +235,7 @@ const CDShield = () => {
               <h3 className="text-2xl font-bold">Guaranteed Analysis</h3>
               <p className="text-green-100 mt-2">Contains Non-Plant Food Ingredients</p>
             </div>
-            
+
             <div className="p-8">
               <div className="space-y-4">
                 {specifications.map((spec, index) => (
@@ -272,7 +272,7 @@ const CDShield = () => {
               <div>
                 <h3 className="text-lg font-semibold text-yellow-800 mb-2">Important Safety Notice</h3>
                 <p className="text-yellow-700">
-                  <strong>Product mortality will occur if mixed in same tank as chemicals.</strong> 
+                  <strong>Product mortality will occur if mixed in same tank as chemicals.</strong>
                   CropDefense™ Shield can be applied with other registered seed treatments only if done from a separate tank.
                 </p>
               </div>
@@ -340,7 +340,7 @@ const CDShield = () => {
               <h2 className="text-3xl font-bold text-gray-900 mb-6">Safe Handling</h2>
               <div className="bg-white rounded-xl p-8 shadow-lg">
                 <div className="flex items-center mb-4">
-                  <Users className="h-6 w-6 text-green-600 mr-3" />
+                  <AlertTriangle className="h-6 w-6 text-yellow-600 mr-3" />
                   <h3 className="text-lg font-semibold text-gray-900">Safety Guidelines</h3>
                 </div>
                 <ul className="space-y-3 text-gray-700">
@@ -361,9 +361,9 @@ const CDShield = () => {
           <div className="max-w-4xl mx-auto">
             <h2 className="text-3xl font-bold mb-6">Warranty Statement</h2>
             <p className="text-lg leading-relaxed text-green-100">
-              The seller warrants that this product contains a minimum number of viable beneficial 
-              microorganisms as indicated on this label. The seller makes no other warranty expressed 
-              or implied as to product viability or performance since storage, use and growing conditions 
+              The seller warrants that this product contains a minimum number of viable beneficial
+              microorganisms as indicated on this label. The seller makes no other warranty expressed
+              or implied as to product viability or performance since storage, use and growing conditions
               are beyond the seller's control.
             </p>
           </div>

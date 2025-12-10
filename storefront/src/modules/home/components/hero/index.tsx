@@ -6,7 +6,7 @@ import Button from '../../../components/UI/Button';
 import Input from '../../../components/UI/Input';
 
 const Hero = () => {
-   const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
     email: '',
@@ -36,7 +36,7 @@ const Hero = () => {
   ];
 
   const reductions = [
-    'Reduce abiotic stress',
+    'Reduce environmental stress',
     'Reduce water and nutrient requirements',
     'Reduce reliance on pesticides',
   ];
@@ -69,7 +69,7 @@ const Hero = () => {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section 
+      <section
         className="relative h-screen flex items-center justify-center bg-cover bg-center bg-no-repeat"
         style={{
           backgroundImage: 'linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)), url(https://images.pexels.com/photos/2681673/pexels-photo-2681673.jpeg?auto=compress&cs=tinysrgb&w=1600)',
@@ -106,97 +106,97 @@ const Hero = () => {
         </div>
       </section>
 
-{/* CropDefense vs Other Symbionts */}
-<section className="py-20 bg-gray-50">
-  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div className="text-center mb-16">
-      <h2 className="text-4xl font-bold text-gray-900 mb-12">
-        CropDefense™ vs Other Symbionts
-      </h2>
+      {/* CropDefense vs Other Symbionts */}
+      <section className="py-20 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold text-gray-900 mb-12">
+              CropDefense™ vs Other Symbionts
+            </h2>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12 text-left">
-        {/* Benefits */}
-        <div className="bg-white rounded-xl p-8 shadow-lg flex flex-col">
-          <div className="flex items-center justify-center w-14 h-14 bg-green-100 rounded-lg mx-auto mb-6">
-            <Plus className="h-6 w-6 text-green-600" />
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12 text-left">
+              {/* Benefits */}
+              <div className="bg-white rounded-xl p-8 shadow-lg flex flex-col">
+                <div className="flex items-center justify-center w-14 h-14 bg-green-100 rounded-lg mx-auto mb-6">
+                  <Plus className="h-6 w-6 text-green-600" />
+                </div>
+                <h3 className="text-xl font-semibold text-gray-900 mb-6 text-center">
+                  Benefits
+                </h3>
+                <ul className="space-y-4">
+                  {benefits.map((benefit, index) => (
+                    <li
+                      key={index}
+                      className="flex items-start gap-3 leading-relaxed text-gray-700"
+                    >
+                      <span className="flex-shrink-0 flex items-center justify-center h-5 w-5 mt-0.5">
+                        <Check className="h-5 w-5 text-green-500" />
+                      </span>
+                      <span className="flex-1">{benefit}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* Reductions */}
+              <div className="bg-white rounded-xl p-8 shadow-lg flex flex-col">
+                <div className="flex items-center justify-center w-14 h-14 bg-blue-100 rounded-lg mx-auto mb-6">
+                  <Minus className="h-6 w-6 text-blue-600" />
+                </div>
+                <h3 className="text-xl font-semibold text-gray-900 mb-6 text-center">
+                  Reductions
+                </h3>
+                <ul className="space-y-4">
+                  {reductions.map((reduction, index) => (
+                    <li
+                      key={index}
+                      className="flex items-start gap-3 leading-relaxed text-gray-700"
+                    >
+                      <span className="flex-shrink-0 flex items-center justify-center h-5 w-5 mt-0.5">
+                        <Minus className="h-5 w-5 text-blue-500" />
+                      </span>
+                      <span className="flex-1">{reduction}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* Compatibilities */}
+              <div className="bg-white rounded-xl p-8 shadow-lg flex flex-col">
+                <div className="flex items-center justify-center w-14 h-14 bg-purple-100 rounded-lg mx-auto mb-6">
+                  <FileText className="h-6 w-6 text-purple-600" />
+                </div>
+                <h3 className="text-xl font-semibold text-gray-900 mb-6 text-center">
+                  Compatibilities & Application
+                </h3>
+                <ul className="space-y-4">
+                  {compatibilities.map((compatibility, index) => (
+                    <li
+                      key={index}
+                      className="flex items-start gap-3 leading-relaxed text-gray-700"
+                    >
+                      <span className="flex-shrink-0 flex items-center justify-center h-2 w-2 mt-2">
+                        <div className="w-2 h-2 bg-purple-500 rounded-full" />
+                      </span>
+                      <span className="flex-1">{compatibility}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+
+            <Button
+              variant="outline"
+              size="lg"
+              onClick={() => window.open("/us/compatibility.pdf", "_blank")}
+             className="mx-auto flex items-center group hover:bg-black hover:text-black"
+            >
+              Check Chemical Compatibility Doc
+              <FileText className="ml-2 h-5 w-5" />
+            </Button>
           </div>
-          <h3 className="text-xl font-semibold text-gray-900 mb-6 text-center">
-            Benefits
-          </h3>
-          <ul className="space-y-4">
-            {benefits.map((benefit, index) => (
-              <li
-                key={index}
-                className="flex items-start gap-3 leading-relaxed text-gray-700"
-              >
-                <span className="flex-shrink-0 flex items-center justify-center h-5 w-5 mt-0.5">
-                  <Check className="h-5 w-5 text-green-500" />
-                </span>
-                <span className="flex-1">{benefit}</span>
-              </li>
-            ))}
-          </ul>
         </div>
-
-        {/* Reductions */}
-        <div className="bg-white rounded-xl p-8 shadow-lg flex flex-col">
-          <div className="flex items-center justify-center w-14 h-14 bg-blue-100 rounded-lg mx-auto mb-6">
-            <Minus className="h-6 w-6 text-blue-600" />
-          </div>
-          <h3 className="text-xl font-semibold text-gray-900 mb-6 text-center">
-            Reductions
-          </h3>
-          <ul className="space-y-4">
-            {reductions.map((reduction, index) => (
-              <li
-                key={index}
-                className="flex items-start gap-3 leading-relaxed text-gray-700"
-              >
-                <span className="flex-shrink-0 flex items-center justify-center h-5 w-5 mt-0.5">
-                  <Minus className="h-5 w-5 text-blue-500" />
-                </span>
-                <span className="flex-1">{reduction}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        {/* Compatibilities */}
-        <div className="bg-white rounded-xl p-8 shadow-lg flex flex-col">
-          <div className="flex items-center justify-center w-14 h-14 bg-purple-100 rounded-lg mx-auto mb-6">
-            <FileText className="h-6 w-6 text-purple-600" />
-          </div>
-          <h3 className="text-xl font-semibold text-gray-900 mb-6 text-center">
-            Compatibilities & Application
-          </h3>
-          <ul className="space-y-4">
-            {compatibilities.map((compatibility, index) => (
-              <li
-                key={index}
-                className="flex items-start gap-3 leading-relaxed text-gray-700"
-              >
-                <span className="flex-shrink-0 flex items-center justify-center h-2 w-2 mt-2">
-                  <div className="w-2 h-2 bg-purple-500 rounded-full" />
-                </span>
-                <span className="flex-1">{compatibility}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </div>
-
-      <Button
-        variant="outline"
-        size="lg"
-        onClick={() => window.open("/us/compactability.pdf", "_blank")}
-        className="mx-auto flex items-center"
-      >
-        Check Chemical Compatibility Doc
-        <FileText className="ml-2 h-5 w-5" />
-      </Button>
-    </div>
-  </div>
-</section>
+      </section>
 
       {/* Improved Milling and Ginning */}
       <section className="py-20 bg-white">
@@ -205,12 +205,12 @@ const Hero = () => {
             <h2 className="text-4xl font-bold text-gray-900 mb-12">Improved Milling and Ginning</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {millingCrops.map((crop, index) => (
-                <div key={index} className="group cursor-pointer">
-                  <div className="relative overflow-hidden rounded-xl shadow-lg mb-4 transform transition-transform duration-300 group-hover:scale-105">
+                <div key={index} className="group">
+                  <div className="relative overflow-hidden rounded-xl shadow-lg mb-4 transform transition-transform duration-300">
                     <img
                       src={crop.image}
                       alt={crop.name}
-                      className="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110"
+                      className="w-full h-64 object-cover transition-transform duration-300"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
                   </div>
@@ -231,12 +231,12 @@ const Hero = () => {
             <h2 className="text-4xl font-bold text-gray-900 mb-12">Improved Nutrition and Shelf-life</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {nutritionCrops.map((crop, index) => (
-                <div key={index} className="group cursor-pointer">
-                  <div className="relative overflow-hidden rounded-xl shadow-lg mb-4 transform transition-transform duration-300 group-hover:scale-105">
+                <div key={index} className="group">
+                  <div className="relative overflow-hidden rounded-xl shadow-lg mb-4 transform transition-transform duration-300 ">
                     <img
                       src={crop.image}
                       alt={crop.name}
-                      className="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110"
+                      className="w-full h-64 object-cover transition-transform duration-300"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
                   </div>
@@ -250,209 +250,209 @@ const Hero = () => {
         </div>
       </section>
 
-   {/* Crops Tested */}
-{/* Crops Tested */}
-<section className="py-20 bg-white">
-  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div className="text-center mb-16">
-      <h2 className="text-4xl font-bold text-gray-900 mb-12">Crops Tested</h2>
-      
-      <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
-        {testedCrops.map((crop, index) => (
-          <div
-            key={index}
-            className="group bg-gray-50 rounded-2xl p-6 text-center 
+      {/* Crops Tested */}
+      {/* Crops Tested */}
+      <section className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold text-gray-900 mb-12">Crops Tested</h2>
+
+            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+              {testedCrops.map((crop, index) => (
+                <div
+                  key={index}
+                  className="group bg-gray-50 rounded-2xl p-6 text-center 
                        hover:bg-primary hover:shadow-lg transition-all duration-300 cursor-pointer
                        border border-gray-100 hover:border-primary
                        hover:-translate-y-1 transform"
-          >
-            {/* Tick Icon */}
-            <div className="mb-4 flex justify-center">
-              <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center
+                >
+                  {/* Tick Icon */}
+                  <div className="mb-4 flex justify-center">
+                    <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center
                               shadow-sm group-hover:shadow-md transition-all duration-300">
-                <svg className="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                </svg>
-              </div>
+                      <svg className="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                    </div>
+                  </div>
+
+                  {/* Crop Name */}
+                  <span className="text-sm font-medium text-black">
+                    {crop}
+                  </span>
+                </div>
+              ))}
             </div>
-
-            {/* Crop Name */}
-            <span className="text-sm font-medium text-black">
-              {crop}
-            </span>
-          </div>
-        ))}
-      </div>
-    </div>
-  </div>
-</section>
-
-{/* Contact Form */}
-<section className="py-24 bg-gradient-to-br from-primary via-primary to-primary/90 relative overflow-hidden">
-  {/* Background pattern */}
-  <div className="absolute inset-0 opacity-10">
-    <div className="absolute inset-0" style={{
-      backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`
-    }}></div>
-  </div>
-
-  <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-    <div className="text-center mb-16">
-      <div className="inline-flex items-center justify-center w-16 h-16 bg-white/10 backdrop-blur-sm rounded-2xl mb-6">
-        <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-        </svg>
-      </div>
-      <h2 className="text-5xl font-bold text-black mb-6 leading-tight">
-        Ready to Transform <br />
-        <span className="text-black/80">Your Agriculture?</span>
-      </h2>
-      <p className="text-xl text-black/80 max-w-3xl mx-auto">
-        Inquire about samples or full scale application. Let's discuss how our innovative solutions can benefit your crops.
-      </p>
-    </div>
-
-    <div className="bg-white/95 backdrop-blur-xl rounded-3xl p-8 md:p-12 shadow-2xl border border-white/20">
-      {isSubmitted ? (
-        <div className="text-center py-12">
-          <div className="w-20 h-20 bg-gradient-to-br from-green-400 to-green-600 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
-            <Check className="h-10 w-10 text-white" />
-          </div>
-          <h3 className="text-3xl font-bold text-gray-900 mb-4">Message Sent Successfully!</h3>
-          <p className="text-lg text-gray-600 mb-8">Thank you for reaching out. We'll get back to you within 24 hours.</p>
-          <div className="inline-flex items-center space-x-2 text-primary font-medium">
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-            </svg>
-            <span>We've received your inquiry</span>
           </div>
         </div>
-      ) : (
-        <form onSubmit={handleSubmit} className="space-y-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="space-y-2">
-              <label className="block text-sm font-semibold text-gray-700">
-                First Name *
-              </label>
-              <div className="relative">
-                <input
-                  type="text"
-                  name="firstName"
-                  value={formData.firstName}
-                  onChange={handleInputChange}
-                  className="w-full px-4 py-4 bg-gray-50 border-2 border-gray-200 rounded-xl 
-                           focus:outline-none focus:ring-0 focus:border-primary focus:bg-white
-                           transition-all duration-200 text-gray-900 placeholder-gray-500"
-                  placeholder="Enter your first name"
-                  required
-                />
-                <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
-                  <svg className="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                  </svg>
-                </div>
-              </div>
-            </div>
+      </section>
 
-            <div className="space-y-2">
-              <label className="block text-sm font-semibold text-gray-700">
-                Last Name *
-              </label>
-              <div className="relative">
-                <input
-                  type="text"
-                  name="lastName"
-                  value={formData.lastName}
-                  onChange={handleInputChange}
-                  className="w-full px-4 py-4 bg-gray-50 border-2 border-gray-200 rounded-xl 
-                           focus:outline-none focus:ring-0 focus:border-primary focus:bg-white
-                           transition-all duration-200 text-gray-900 placeholder-gray-500"
-                  placeholder="Enter your last name"
-                  required
-                />
-                <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
-                  <svg className="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                  </svg>
-                </div>
-              </div>
+      {/* Contact Form */}
+      <section className="py-24 bg-gradient-to-br from-primary via-primary to-primary/90 relative overflow-hidden">
+        {/* Background pattern */}
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute inset-0" style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`
+          }}></div>
+        </div>
+
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+          <div className="text-center mb-16">
+            <div className="inline-flex items-center justify-center w-16 h-16 bg-white/10 backdrop-blur-sm rounded-2xl mb-6">
+              <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+              </svg>
             </div>
+            <h2 className="text-5xl font-bold text-black mb-6 leading-tight">
+              Ready to Transform <br />
+              <span className="text-black/80">Your Agriculture?</span>
+            </h2>
+            <p className="text-xl text-black/80 max-w-3xl mx-auto">
+              Enquire about samples or full scale application. Let's discuss how our innovative solutions can benefit your crops.
+            </p>
           </div>
 
-          <div className="space-y-2">
-            <label className="block text-sm font-semibold text-gray-700">
-              Email Address *
-            </label>
-            <div className="relative">
-              <input
-                type="email"
-                name="email"
-                value={formData.email}
-                onChange={handleInputChange}
-                className="w-full px-4 py-4 bg-gray-50 border-2 border-gray-200 rounded-xl 
+          <div className="bg-white/95 backdrop-blur-xl rounded-3xl p-8 md:p-12 shadow-2xl border border-white/20">
+            {isSubmitted ? (
+              <div className="text-center py-12">
+                <div className="w-20 h-20 bg-gradient-to-br from-green-400 to-green-600 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
+                  <Check className="h-10 w-10 text-white" />
+                </div>
+                <h3 className="text-3xl font-bold text-gray-900 mb-4">Message Sent Successfully!</h3>
+                <p className="text-lg text-gray-600 mb-8">Thank you for reaching out. We'll get back to you within 24 hours.</p>
+                <div className="inline-flex items-center space-x-2 text-primary font-medium">
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span>We've received your inquiry</span>
+                </div>
+              </div>
+            ) : (
+              <form onSubmit={handleSubmit} className="space-y-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="space-y-2">
+                    <label className="block text-sm font-semibold text-gray-700">
+                      First Name *
+                    </label>
+                    <div className="relative">
+                      <input
+                        type="text"
+                        name="firstName"
+                        value={formData.firstName}
+                        onChange={handleInputChange}
+                        className="w-full px-4 py-4 bg-gray-50 border-2 border-gray-200 rounded-xl 
+                           focus:outline-none focus:ring-0 focus:border-primary focus:bg-white
+                           transition-all duration-200 text-gray-900 placeholder-gray-500"
+                        placeholder="Enter your first name"
+                        required
+                      />
+                      <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                        <svg className="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="space-y-2">
+                    <label className="block text-sm font-semibold text-gray-700">
+                      Last Name *
+                    </label>
+                    <div className="relative">
+                      <input
+                        type="text"
+                        name="lastName"
+                        value={formData.lastName}
+                        onChange={handleInputChange}
+                        className="w-full px-4 py-4 bg-gray-50 border-2 border-gray-200 rounded-xl 
+                           focus:outline-none focus:ring-0 focus:border-primary focus:bg-white
+                           transition-all duration-200 text-gray-900 placeholder-gray-500"
+                        placeholder="Enter your last name"
+                        required
+                      />
+                      <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                        <svg className="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="space-y-2">
+                  <label className="block text-sm font-semibold text-gray-700">
+                    Email Address *
+                  </label>
+                  <div className="relative">
+                    <input
+                      type="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleInputChange}
+                      className="w-full px-4 py-4 bg-gray-50 border-2 border-gray-200 rounded-xl 
                          focus:outline-none focus:ring-0 focus:border-primary focus:bg-white
                          transition-all duration-200 text-gray-900 placeholder-gray-500"
-                placeholder="your.email@example.com"
-                required
-              />
-              <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
-                <svg className="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                </svg>
-              </div>
-            </div>
-          </div>
+                      placeholder="your.email@example.com"
+                      required
+                    />
+                    <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                      <svg className="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                      </svg>
+                    </div>
+                  </div>
+                </div>
 
-          <div className="space-y-2">
-            <label className="block text-sm font-semibold text-gray-700">
-              Your Message *
-            </label>
-            <textarea
-              name="message"
-              value={formData.message}
-              onChange={handleInputChange}
-              rows={5}
-              className="w-full px-4 py-4 bg-gray-50 border-2 border-gray-200 rounded-xl 
+                <div className="space-y-2">
+                  <label className="block text-sm font-semibold text-gray-700">
+                    Your Message *
+                  </label>
+                  <textarea
+                    name="message"
+                    value={formData.message}
+                    onChange={handleInputChange}
+                    rows={5}
+                    className="w-full px-4 py-4 bg-gray-50 border-2 border-gray-200 rounded-xl 
                        focus:outline-none focus:ring-0 focus:border-primary focus:bg-white
                        transition-all duration-200 text-gray-900 placeholder-gray-500 resize-none"
-              placeholder="Tell us about your project, crop type, scale of application, or any specific questions you have..."
-              required
-            />
-            <div className="text-xs text-gray-500 text-right">
-              {formData.message.length}/500 characters
-            </div>
-          </div>
+                    placeholder="Tell us about your project, crop type, scale of application, or any specific questions you have..."
+                    required
+                  />
+                  <div className="text-xs text-gray-500 text-right">
+                    {formData.message.length}/500 characters
+                  </div>
+                </div>
 
-          <div className="flex flex-col sm:flex-row items-center justify-between pt-6 space-y-4 sm:space-y-0">
-            {/* <div className="flex items-center space-x-2 text-sm text-gray-600">
+                <div className="flex flex-col sm:flex-row items-center justify-between pt-6 space-y-4 sm:space-y-0">
+                  {/* <div className="flex items-center space-x-2 text-sm text-gray-600">
               <svg className="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
               <span>We typically respond within 24 hours</span>
             </div> */}
-            
-            <button
-              type="submit"
-              className="group bg-black relative px-8 py-4 bg-gradient-to-r from-primary to-primary/90 
+
+                  <button
+                    type="submit"
+                    className="group bg-black relative px-8 py-4 bg-gradient-to-r from-primary to-primary/90 
                        text-white font-semibold rounded-xl shadow-lg hover:shadow-xl 
                        hover:shadow-primary/25 transition-all duration-200 
                        hover:-translate-y-0.5 focus:outline-none focus:ring-4 focus:ring-primary/20
                        disabled:opacity-50 disabled:cursor-not-allowed min-w-[200px]"
-            >
-              <span className="relative flex items-center justify-center space-x-2">
-                <span>Send Message</span>
-                {/* <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  >
+                    <span className="relative flex items-center justify-center space-x-2">
+                      <span>Send Message</span>
+                      {/* <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
                 </svg> */}
-              </span>
-            </button>
+                    </span>
+                  </button>
+                </div>
+              </form>
+            )}
           </div>
-        </form>
-      )}
-    </div>
 
-    {/* Contact info cards */}
-    {/* <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-6">
+          {/* Contact info cards */}
+          {/* <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-6">
       <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 text-center border border-white/20">
         <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center mx-auto mb-4">
           <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -483,8 +483,8 @@ const Hero = () => {
         <p className="text-white/80 text-sm">Tailored to your specific needs</p>
       </div>
     </div> */}
-  </div>
-</section>
+        </div>
+      </section>
     </div>
   );
 };

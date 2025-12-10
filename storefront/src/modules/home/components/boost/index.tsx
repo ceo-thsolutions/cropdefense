@@ -1,13 +1,13 @@
 "use client";
 
 import React, { useState } from 'react';
-import { 
-  ChevronRight, 
-  Check, 
-  Zap, 
-  Droplets, 
-  Thermometer, 
-  Leaf, 
+import {
+  ChevronRight,
+  Check,
+  Zap,
+  Droplets,
+  Thermometer,
+  Leaf,
   AlertTriangle,
   Info,
   Package,
@@ -21,7 +21,9 @@ import {
   Beaker,
   Target,
   FlaskConical,
-  Microscope
+  Microscope,
+  Sprout,
+  ArrowDown
 } from 'lucide-react';
 import Button from '../../../components/UI/Button';
 
@@ -36,7 +38,7 @@ const Boost = () => {
   const benefits = [
     {
       icon: <Beaker className="h-6 w-6" />,
-      title: "Mineral Solubilization",
+      title: "Mineral Absorption",
       description: "Bacteria solubilize soil minerals and nutrients to enhance crop production"
     },
     {
@@ -55,13 +57,13 @@ const Boost = () => {
     {
       title: "Seed Treatment",
       description: "Dissolve in CropDefense™ Shield solution and apply to dry seed",
-      icon: <Package className="h-8 w-8" />,
+      icon: <Sprout className="h-8 w-8" />,
       details: "Achieve optimal seed coverage by dissolving CropDefense™ Boost in CropDefense™ Shield solution. Apply within 4 hours of mixing. Do not tank-mix with fungicides or biocides."
     },
     {
       title: "In Furrow Application",
       description: "Add to delivery tank with water and CropDefense™ Shield",
-      icon: <Truck className="h-8 w-8" />,
+      icon: <ArrowDown className="h-8 w-8" />,
       details: "Add to delivery tank containing water and CropDefense™ Shield. Apply directly onto seeds during planting. Use solution within 4 hours of mixing."
     },
     {
@@ -90,7 +92,7 @@ const Boost = () => {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
-      <section 
+      <section
         className="relative h-screen flex items-center justify-center bg-cover bg-center bg-no-repeat"
         style={{
           backgroundImage: 'linear-gradient(rgba(0, 100, 200, 0.7), rgba(0, 50, 150, 0.8)), url(https://images.pexels.com/photos/1595104/pexels-photo-1595104.jpeg?auto=compress&cs=tinysrgb&w=1600)',
@@ -107,7 +109,7 @@ const Boost = () => {
             <span className="block text-4xl md:text-6xl text-blue-200 mt-2">Boost</span>
           </h1>
           <p className="text-xl md:text-2xl mb-8 leading-relaxed animate-slide-up max-w-4xl mx-auto">
-            A crop treatment containing bacteria that solubilize soil minerals and nutrients 
+            A crop treatment containing bacteria that absorb soil minerals and nutrients
             to enhance crop production and maximize nutrient availability.
           </p>
           {/* <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -131,13 +133,13 @@ const Boost = () => {
                 Advanced Bacterial Nutrient Enhancement
               </h2>
               <p className="text-lg text-gray-700 mb-8 leading-relaxed">
-                The microbes in <strong>CropDefense™ Boost</strong> will remain inactive until soil moisture 
-                levels are sufficient to stimulate seed germination. Upon activation, the microbes establish 
+                The microbes in <strong>CropDefense™ Boost</strong> will remain inactive until soil moisture
+                levels are sufficient to stimulate seed germination. Upon activation, the microbes establish
                 in rhizosphere soils and solubilize bound minerals and nutrients.
               </p>
               <p className="text-lg text-gray-700 mb-8 leading-relaxed">
-                <strong>CropDefense™ Boost</strong> is formulated to be compatible with all existing seed 
-                treatment equipment and certain chemicals* and can be simply added as an additional component 
+                <strong>CropDefense™ Boost</strong> is formulated to be compatible with all existing seed
+                treatment equipment and certain chemicals* and can be simply added as an additional component
                 during the seed/crop treatment process.
               </p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
@@ -180,7 +182,7 @@ const Boost = () => {
               Unlock the full potential of soil nutrients with advanced bacterial technology
             </p>
           </div>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {benefits.map((benefit, index) => (
               <div key={index} className="bg-white rounded-xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300">
@@ -209,8 +211,8 @@ const Boost = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {applicationMethods.map((method, index) => (
-              <div 
-                key={index} 
+              <div
+                key={index}
                 className="bg-gradient-to-br from-blue-50 to-purple-50 rounded-xl p-8 hover:shadow-lg transition-all duration-300 cursor-pointer"
                 onClick={() => toggleSection(`method-${index}`)}
               >
@@ -219,16 +221,16 @@ const Boost = () => {
                 </div>
                 <h3 className="text-xl font-semibold text-gray-900 mb-4">{method.title}</h3>
                 <p className="text-gray-600 mb-4">{method.description}</p>
-                
+
                 {expandedSection === `method-${index}` && (
                   <div className="mt-4 p-4 bg-white rounded-lg">
                     <p className="text-sm text-gray-700">{method.details}</p>
                   </div>
                 )}
-                
-                <Button 
-                  variant="outline" 
-                  size="sm" 
+
+                <Button
+                  variant="outline"
+                  size="sm"
                   className="mt-4 border-blue-500 text-blue-600 hover:bg-blue-500 hover:text-white"
                 >
                   {expandedSection === `method-${index}` ? 'Less Info' : 'More Info'}
@@ -259,7 +261,7 @@ const Boost = () => {
                   </div>
                 </div>
               </div>
-              
+
               <div className="p-6">
                 <div className="space-y-4">
                   {activeIngredients.map((ingredient, index) => (
@@ -288,7 +290,7 @@ const Boost = () => {
                   </div>
                 </div>
               </div>
-              
+
               <div className="p-6">
                 <div className="space-y-4">
                   {specifications.map((spec, index) => (
@@ -326,7 +328,7 @@ const Boost = () => {
               <div>
                 <h3 className="text-lg font-semibold text-yellow-800 mb-2">Important Application Notice</h3>
                 <p className="text-yellow-700 mb-2">
-                  <strong>Do not tank-mix with fungicides or products containing biocides.</strong> 
+                  <strong>Do not tank-mix with fungicides or products containing biocides.</strong>
                   CropDefense™ Boost and CropDefense™ Shield are living organisms.
                 </p>
                 <p className="text-yellow-700">
@@ -401,7 +403,7 @@ const Boost = () => {
               <h2 className="text-3xl font-bold text-gray-900 mb-6">Handling & Caution</h2>
               <div className="bg-white rounded-xl p-8 shadow-lg">
                 <div className="flex items-center mb-4">
-                  <Users className="h-6 w-6 text-green-600 mr-3" />
+                  <AlertTriangle className="h-6 w-6 text-yellow-600 mr-3" />
                   <h3 className="text-lg font-semibold text-gray-900">Safety Guidelines</h3>
                 </div>
                 <ul className="space-y-3 text-gray-700">
@@ -423,14 +425,14 @@ const Boost = () => {
           <div className="max-w-4xl mx-auto">
             <h2 className="text-3xl font-bold mb-6">Warranty Statement</h2>
             <p className="text-lg leading-relaxed text-blue-100 mb-6">
-              The seller warrants that this product contains a minimum number of viable beneficial 
-              microorganisms as indicated on this label. The seller makes no other warranty expressed 
-              or implied as to product viability or performance since storage, use and growing conditions 
+              The seller warrants that this product contains a minimum number of viable beneficial
+              microorganisms as indicated on this label. The seller makes no other warranty expressed
+              or implied as to product viability or performance since storage, use and growing conditions
               are beyond the seller's control.
             </p>
             <p className="text-blue-200">
-              Seller's guarantee is limited to the terms set out on the label and subject thereto. 
-              Buyer assumes the risk to persons or property arising from the use or handling of this 
+              Seller's guarantee is limited to the terms set out on the label and subject thereto.
+              Buyer assumes the risk to persons or property arising from the use or handling of this
               product and accepts the product on that condition.
             </p>
           </div>

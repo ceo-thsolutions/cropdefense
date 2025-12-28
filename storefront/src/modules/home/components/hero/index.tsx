@@ -54,8 +54,8 @@ const Hero = () => {
   ];
 
   const nutritionCrops = [
-    { name: 'Legumes', image: 'https://images.pexels.com/photos/1656663/pexels-photo-1656663.jpeg?auto=compress&cs=tinysrgb&w=400' },
-    { name: 'Berries', image: 'https://images.pexels.com/photos/1132047/pexels-photo-1132047.jpeg?auto=compress&cs=tinysrgb&w=400' },
+    { name: 'Legumes', image: './us/beans.jpeg' },
+    { name: 'Berries', image: './us/berries.jpeg' },
     { name: 'Vegetables', image: 'https://images.pexels.com/photos/1300972/pexels-photo-1300972.jpeg?auto=compress&cs=tinysrgb&w=400' },
   ];
 
@@ -77,11 +77,10 @@ const Hero = () => {
       >
         <div className="text-center text-white max-w-4xl mx-auto px-4">
           <h1 className="text-5xl md:text-7xl font-bold mb-6 animate-fade-in">
-            CropDefense™
+            Defending Plant Life, Strengthening ecosystems 
           </h1>
           <p className="text-xl md:text-2xl mb-8 leading-relaxed animate-slide-up">
-            Our OMRI certified microbial seed + plant treatment increases crop yields up to 70% on both organic and conventional crops alike. It improves nutrient density and tolerance to environmental stressors, such as extreme temperatures, drought, and infertile soil.
-          </p>
+In a world of rising stress, unpredictable weather, and tightening margins, we are here to help farmers strengthen the foundation of our food system—one resilient acre at a time.          </p>
           <Button onClick={() => (window.location.href = '/story')} size="lg" className="animate-bounce-gentle">
             Learn More
             <ChevronRight className="ml-2 h-5 w-5" />
@@ -185,7 +184,7 @@ const Hero = () => {
               </div>
             </div>
 
-            <Button
+            {/* <Button
               variant="outline"
               size="lg"
               onClick={() => window.open("/us/compatibility.pdf", "_blank")}
@@ -193,7 +192,7 @@ const Hero = () => {
             >
               Check Chemical Compatibility Doc
               <FileText className="ml-2 h-5 w-5" />
-            </Button>
+            </Button> */}
           </div>
         </div>
       </section>

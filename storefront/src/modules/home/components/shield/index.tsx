@@ -96,8 +96,8 @@ const CDShield = () => {
             <span className="block text-4xl md:text-6xl text-green-200 mt-2">Shield</span>
           </h1>
           <p className="text-xl md:text-2xl mb-8 leading-relaxed animate-slide-up max-w-4xl mx-auto">
-            An endophytic inoculant which establishes a beneficial symbiosis with treated plants,
-            increasing crop yields and tolerance to environmental stress.
+            An endophytic* inoculant which establishes a beneficial symbiosis with treated plants, increasing crop yields and tolerance to environmental stress.
+            
           </p>
           {/* <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button size="lg" className="animate-bounce-gentle bg-green-600 hover:bg-green-700">

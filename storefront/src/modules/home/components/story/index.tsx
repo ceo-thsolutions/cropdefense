@@ -89,12 +89,12 @@ const Story = () => {
             <span className="text-sm font-medium">Our Story</span>
           </div>
           <h1 className="text-5xl md:text-7xl font-bold mb-8 animate-fade-in">
-            Defending Plant Life,
-            <span className="block text-primary">Strengthening Ecosystems</span>
+            CropDefense™
+            {/* Defending Plant Life,
+            <span className="block text-primary">Strengthening Ecosystems</span> */}
           </h1>
           <p className="text-xl md:text-2xl mb-12 leading-relaxed animate-slide-up opacity-90">
-            Our product was developed to defend plant life and strengthen ecosystems through groundbreaking scientific discovery and relentless innovation.
-          </p>
+Collaborating with Mother Nature to protect and enrich the land that sustains us.          </p>
           {/* <Button size="lg" className="animate-bounce-gentle">
             Discover Our Journey
             <ChevronRight className="ml-2 h-5 w-5" />
@@ -288,7 +288,7 @@ const Story = () => {
                 CropDefense™ produces the most powerful endophytes on the planet.
                 Farmers globally have collected data to validate these claims.
               </p>
-              <Button
+              {/* <Button
                 variant="secondary"
                 size="lg"
                 className="bg-black text-white hover:bg-black/90 hover:text-white-900 border-0"
@@ -297,7 +297,7 @@ const Story = () => {
               >
                 Learn More About Our Results
                 <TrendingUp className="ml-2 h-5 w-5" />
-              </Button>
+              </Button> */}
 
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
                 <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 text-center border border-white/20">

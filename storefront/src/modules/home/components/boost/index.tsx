@@ -109,8 +109,7 @@ const Boost = () => {
             <span className="block text-4xl md:text-6xl text-blue-200 mt-2">Boost</span>
           </h1>
           <p className="text-xl md:text-2xl mb-8 leading-relaxed animate-slide-up max-w-4xl mx-auto">
-            A crop treatment containing bacteria that absorb soil minerals and nutrients
-            to enhance crop production and maximize nutrient availability.
+            Endophytes* are beneficial microorganisms that live between living plant cells and strengthen the plant’s natural immune system and stress response.
           </p>
           {/* <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button size="lg" className="animate-bounce-gentle bg-blue-600 hover:bg-blue-700">

@@ -36,12 +36,13 @@ const ClientNav: React.FC<ClientNavProps> = ({ regions, cartButton }) => {
 
       {/* Desktop Navigation */}
       <div className="hidden md:flex items-center space-x-8">
+                <LocalizedClientLink href="/story" className="text-gray-700 hover:text-primary transition-colors font-medium">
+          Our Mission
+        </LocalizedClientLink>
         <LocalizedClientLink href="/" className="text-gray-700 hover:text-primary transition-colors font-medium">
-          Home
+          Treatment
         </LocalizedClientLink>
-        <LocalizedClientLink href="/story" className="text-gray-700 hover:text-primary transition-colors font-medium">
-          Our Story
-        </LocalizedClientLink>
+
 
         {/* Wholesale Dropdown */}
         <div className="relative">
@@ -67,6 +68,13 @@ const ClientNav: React.FC<ClientNavProps> = ({ regions, cartButton }) => {
                 onClick={() => setIsWholesaleOpen(false)}
               >
                 CropDefense Boost
+              </LocalizedClientLink>
+                            <LocalizedClientLink
+                href="/Field_Test.pdf"
+                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-primary"
+                onClick={() => setIsWholesaleOpen(false)}
+              >
+                Field Test Results
               </LocalizedClientLink>
             </div>
           )}
@@ -111,22 +119,23 @@ const ClientNav: React.FC<ClientNavProps> = ({ regions, cartButton }) => {
       {isMenuOpen && (
         <div className="md:hidden py-4 border-t border-gray-200 absolute top-16 left-0 right-0 bg-white shadow-lg">
           <div className="flex flex-col space-y-4 px-4 sm:px-6 lg:px-8">
+                        <LocalizedClientLink
+              href="/story"
+              className="text-gray-700 hover:text-primary transition-colors font-medium"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Our Mission
+            </LocalizedClientLink>
             <LocalizedClientLink
               href="/"
               className="text-gray-700 hover:text-primary transition-colors font-medium"
               onClick={() => setIsMenuOpen(false)}
             >
-              Home
+              Treatment
             </LocalizedClientLink>
-            <LocalizedClientLink
-              href="/story"
-              className="text-gray-700 hover:text-primary transition-colors font-medium"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Our Story
-            </LocalizedClientLink>
+
             <div className="space-y-2">
-              <span className="text-gray-700 font-medium">Wholesale</span>
+              <span className="text-gray-700 font-medium">About</span>
               <LocalizedClientLink
                 href="/wholesale/shield"
                 className="block pl-4 text-gray-600 hover:text-primary transition-colors"
@@ -140,6 +149,13 @@ const ClientNav: React.FC<ClientNavProps> = ({ regions, cartButton }) => {
                 onClick={() => setIsMenuOpen(false)}
               >
                 CropDefense Boost
+              </LocalizedClientLink>
+                            <LocalizedClientLink
+                href="/Field_Test.pdf"
+                className="block pl-4 text-gray-600 hover:text-primary transition-colors"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Field Test Results
               </LocalizedClientLink>
             </div>
             <LocalizedClientLink

@@ -75,18 +75,17 @@ const Boost = () => {
   ];
 
   const activeIngredients = [
-    { name: "Bacillus licheniformis", concentration: "1x10⁸ cfu/g", percentage: "2.0%" },
-    { name: "Bacillus megaterium", concentration: "1x10⁸ cfu/g", percentage: "2.0%" },
-    { name: "Bacillus pumilus", concentration: "1x10⁸ cfu/g", percentage: "2.0%" },
-    { name: "Bacillus subtilis", concentration: "1x10⁸ cfu/g", percentage: "2.0%" },
-    { name: "Bacillus amyloliquefaciens", concentration: "1x10⁸ cfu/g", percentage: "2.0%" }
+    { name: "Bacillus licheniformis", concentration: "~1x10⁸ CFU/g (approx.)" },
+    { name: "Bacillus megaterium", concentration: "~1x10⁸ CFU/g (approx.)" },
+    { name: "Bacillus pumilus", concentration: "~1x10⁸ CFU/g (approx.)" },
+    { name: "Bacillus subtilis", concentration: "~1x10⁸ CFU/g (approx.)" },
+    { name: "Bacillus amyloliquefaciens", concentration: "~1x10⁸ CFU/g (approx.)" }
   ];
 
   const specifications = [
-    { label: "Inert Ingredient", value: "Sucrose Powder", percentage: "90.0%" },
-    { label: "Total", value: "", percentage: "100.0%" },
-    { label: "Density", value: "0.676g/ml @ 68°F", percentage: "" },
-    { label: "Net Weights", value: "1.4, 2.8, 3.5, 149 oz. (40, 80, 100, 4225g)", percentage: "" }
+    { label: "Inert Ingredient", value: "Sucrose Powder" },
+    { label: "Density", value: "0.676g/ml @ 68°F" },
+    { label: "Net Weights", value: "1.4, 2.8, 3.5, 149 oz. (40, 80, 100, 4225g)" }
   ];
 
   return (
@@ -270,7 +269,6 @@ const Boost = () => {
                           <span className="font-semibold text-blue-600 italic">{ingredient.name}</span>
                           <p className="text-sm text-gray-600 mt-1">({ingredient.concentration})</p>
                         </div>
-                        <span className="font-semibold text-gray-900">{ingredient.percentage}</span>
                       </div>
                     </div>
                   ))}
@@ -302,9 +300,6 @@ const Boost = () => {
                           <span className="text-gray-600 ml-2">{spec.value}</span>
                         )}
                       </div>
-                      {spec.percentage && (
-                        <span className="font-semibold text-gray-900">{spec.percentage}</span>
-                      )}
                     </div>
                   ))}
                 </div>

@@ -69,11 +69,10 @@ const CDShield = () => {
   ];
 
   const specifications = [
-    { label: "Active Ingredient", value: "Trichoderma harzianum (minimum 1x10⁶ viable spores/ml)", percentage: "0.5%" },
-    { label: "Inert Ingredients", value: "Water (H₂O)", percentage: "99.5%" },
-    { label: "Total", value: "", percentage: "100.0%" },
-    { label: "Density", value: "1kg/liter", percentage: "" },
-    { label: "Net Volume", value: "4 or 169 fl. oz. (118 or 4,998 ml)", percentage: "" }
+    { label: "Active Ingredient", value: "Trichoderma harzianum (~1x10⁶ spores/ml approx.)" },
+    { label: "Inert Ingredients", value: "Water (H₂O)" },
+    { label: "Density", value: "1kg/liter" },
+    { label: "Net Volume", value: "4 or 169 fl. oz. (118 or 4,998 ml)" }
   ];
 
   return (
@@ -97,7 +96,7 @@ const CDShield = () => {
           </h1>
           <p className="text-xl md:text-2xl mb-8 leading-relaxed animate-slide-up max-w-4xl mx-auto">
             An endophytic* inoculant which establishes a beneficial symbiosis with treated plants, increasing crop yields and tolerance to environmental stress.
-            
+
           </p>
           {/* <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button size="lg" className="animate-bounce-gentle bg-green-600 hover:bg-green-700">
@@ -248,9 +247,6 @@ const CDShield = () => {
                         <span className="text-gray-600 ml-2">{spec.value}</span>
                       )}
                     </div>
-                    {spec.percentage && (
-                      <span className="font-semibold text-gray-900">{spec.percentage}</span>
-                    )}
                   </div>
                 ))}
               </div>

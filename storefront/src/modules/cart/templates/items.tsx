@@ -20,7 +20,7 @@ const ItemsTemplate = ({ items }: ItemsTemplateProps) => {
           <Table.Row className="text-ui-fg-subtle txt-medium-plus">
             <Table.HeaderCell className="!pl-0">Item</Table.HeaderCell>
             <Table.HeaderCell></Table.HeaderCell>
-            <Table.HeaderCell>Quantity</Table.HeaderCell>
+            <Table.HeaderCell>Acres</Table.HeaderCell>
             <Table.HeaderCell className="hidden small:table-cell">
               Price
             </Table.HeaderCell>
@@ -32,15 +32,15 @@ const ItemsTemplate = ({ items }: ItemsTemplateProps) => {
         <Table.Body>
           {items
             ? items
-                .sort((a, b) => {
-                  return (a.created_at ?? "") > (b.created_at ?? "") ? -1 : 1
-                })
-                .map((item) => {
-                  return <Item key={item.id} item={item} />
-                })
+              .sort((a, b) => {
+                return (a.created_at ?? "") > (b.created_at ?? "") ? -1 : 1
+              })
+              .map((item) => {
+                return <Item key={item.id} item={item} />
+              })
             : repeat(5).map((i) => {
-                return <SkeletonLineItem key={i} />
-              })}
+              return <SkeletonLineItem key={i} />
+            })}
         </Table.Body>
       </Table>
     </div>

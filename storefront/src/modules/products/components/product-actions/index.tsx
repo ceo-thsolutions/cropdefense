@@ -1,6 +1,6 @@
 "use client"
 
-import { Button } from "@medusajs/ui"
+import { Button, Input, Label } from "@medusajs/ui"
 import { isEqual } from "lodash"
 import { useParams } from "next/navigation"
 import { useEffect, useMemo, useRef, useState } from "react"
@@ -36,6 +36,9 @@ export default function ProductActions({
 }: ProductActionsProps) {
   const [options, setOptions] = useState<Record<string, string | undefined>>({})
   const [isAdding, setIsAdding] = useState(false)
+  const [acres, setAcres] = useState<string>("1")
+  const [acresError, setAcresError] = useState<string | null>(null)
+
   const countryCode = useParams().countryCode as string
 
   // If there is only 1 variant, preselect the options
@@ -93,15 +96,41 @@ export default function ProductActions({
 
   const inView = useIntersection(actionsRef, "0px")
 
+  const handleAcresChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const val = e.target.value
+    setAcres(val)
+
+    if (val === "") {
+      setAcresError("Required")
+      return
+    }
+
+    const num = Number(val)
+    if (isNaN(num)) {
+      setAcresError("Must be a number")
+      return
+    }
+    if (!Number.isInteger(num)) {
+      setAcresError("Must be a whole number")
+      return
+    }
+    if (num < 1) {
+      setAcresError("Must be at least 1")
+      return
+    }
+    setAcresError(null)
+  }
+
   // add the selected variant to the cart
   const handleAddToCart = async () => {
     if (!selectedVariant?.id) return null
+    if (acresError || !acres) return null
 
     setIsAdding(true)
 
     await addToCart({
       variantId: selectedVariant.id,
-      quantity: 1,
+      quantity: parseInt(acres),
       countryCode,
     })
 
@@ -135,9 +164,30 @@ export default function ProductActions({
 
         <ProductPrice product={product} variant={selectedVariant} />
 
+        <div className="flex flex-col gap-y-2 mb-4">
+          <Label htmlFor="acres-input" className="text-ui-fg-base">
+            Acres
+          </Label>
+          <Input
+            id="acres-input"
+            type="number"
+            min={1}
+            step={1}
+            value={acres}
+            onChange={handleAcresChange}
+            placeholder="Enter number of acres"
+            className={acresError ? "border-ui-fg-error" : ""}
+          />
+          {acresError && (
+            <span className="text-ui-fg-error text-small-regular">
+              {acresError}
+            </span>
+          )}
+        </div>
+
         <Button
           onClick={handleAddToCart}
-          disabled={!inStock || !selectedVariant || !!disabled || isAdding}
+          disabled={!inStock || !selectedVariant || !!disabled || isAdding || !!acresError || !acres}
           variant="primary"
           className="w-full h-10"
           isLoading={isAdding}
@@ -146,8 +196,8 @@ export default function ProductActions({
           {!selectedVariant
             ? "Select variant"
             : !inStock
-            ? "Out of stock"
-            : "Add to cart"}
+              ? "Out of stock"
+              : "Add to cart"}
         </Button>
         <MobileActions
           product={product}

@@ -209,6 +209,9 @@ export default function ProductActions({
           isAdding={isAdding}
           show={!inView}
           optionsDisabled={!!disabled || isAdding}
+          acres={acres}
+          handleAcresChange={handleAcresChange}
+          acresError={acresError}
         />
       </div>
     </>

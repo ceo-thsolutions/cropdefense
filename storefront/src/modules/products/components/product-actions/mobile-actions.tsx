@@ -1,5 +1,5 @@
 import { Dialog, Transition } from "@headlessui/react"
-import { Button, clx } from "@medusajs/ui"
+import { Button, Input, clx } from "@medusajs/ui"
 import React, { Fragment, useMemo } from "react"
 
 import useToggleState from "@lib/hooks/use-toggle-state"
@@ -20,6 +20,9 @@ type MobileActionsProps = {
   isAdding?: boolean
   show: boolean
   optionsDisabled: boolean
+  acres?: string
+  handleAcresChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
+  acresError?: string | null
 }
 
 const MobileActions: React.FC<MobileActionsProps> = ({
@@ -32,6 +35,9 @@ const MobileActions: React.FC<MobileActionsProps> = ({
   isAdding,
   show,
   optionsDisabled,
+  acres,
+  handleAcresChange,
+  acresError,
 }) => {
   const { state, open, close } = useToggleState()
 
@@ -95,34 +101,55 @@ const MobileActions: React.FC<MobileActionsProps> = ({
                 <div></div>
               )}
             </div>
-            <div className="grid grid-cols-2 w-full gap-x-4">
-              <Button
-                onClick={open}
-                variant="secondary"
-                className="w-full"
-                data-testid="mobile-actions-button"
-              >
-                <div className="flex items-center justify-between w-full">
-                  <span>
-                    {variant
-                      ? Object.values(options).join(" / ")
-                      : "Select Options"}
-                  </span>
-                  <ChevronDown />
+            <div className={clx("w-full gap-x-4", {
+              "grid grid-cols-2": (product.variants?.length ?? 0) > 1,
+              "grid grid-cols-[1fr_2fr] items-end": (product.variants?.length ?? 0) <= 1,
+            })}>
+              {(product.variants?.length ?? 0) > 1 && (
+                <Button
+                  onClick={open}
+                  variant="secondary"
+                  className="w-full"
+                  data-testid="mobile-actions-button"
+                >
+                  <div className="flex items-center justify-between w-full">
+                    <span>
+                      {variant
+                        ? Object.values(options).join(" / ")
+                        : "Select Options"}
+                    </span>
+                    <ChevronDown />
+                  </div>
+                </Button>
+              )}
+              {((product.variants?.length ?? 0) <= 1) && (
+                <div className="w-full flex flex-col">
+                  <span className="text-small-regular text-ui-fg-subtle mb-1">Acres</span>
+                  <Input
+                    type="number"
+                    min={1}
+                    step={1}
+                    value={acres}
+                    onChange={handleAcresChange}
+                    placeholder="Acres"
+                    className={clx("h-10", {
+                      "border-ui-fg-error": !!acresError
+                    })}
+                  />
                 </div>
-              </Button>
+              )}
               <Button
                 onClick={handleAddToCart}
-                disabled={!inStock || !variant}
-                className="w-full"
+                disabled={!inStock || !variant || !!acresError || !acres}
+                className="w-full h-10"
                 isLoading={isAdding}
                 data-testid="mobile-cart-button"
               >
                 {!variant
                   ? "Select variant"
                   : !inStock
-                  ? "Out of stock"
-                  : "Add to cart"}
+                    ? "Out of stock"
+                    : "Add to cart"}
               </Button>
             </div>
           </div>

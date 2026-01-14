@@ -77,10 +77,10 @@ const Hero = () => {
       >
         <div className="text-center text-white max-w-4xl mx-auto px-4">
           <h1 className="text-5xl md:text-7xl font-bold mb-6 animate-fade-in">
-            Defending Plant Life, Strengthening ecosystems 
+           Make Farming Profitable 
           </h1>
           <p className="text-xl md:text-2xl mb-8 leading-relaxed animate-slide-up">
-In a world of rising stress, unpredictable weather, and tightening margins, we are here to help farmers strengthen the foundation of our food system—one resilient acre at a time.          </p>
+In a world of rising stress, unpredictable weather, and tightening margins, we are here to help farmers strengthen the foundation of our food system          </p>
           <Button onClick={() => (window.location.href = '/story')} size="lg" className="animate-bounce-gentle">
             Learn More
             <ChevronRight className="ml-2 h-5 w-5" />

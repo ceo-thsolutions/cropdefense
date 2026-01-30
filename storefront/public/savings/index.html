@@ -1,0 +1,2081 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CropDefense Savings Report | Your Personalized Analysis</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=DM+Sans:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <style>
+        :root {
+            --brand-green: #7EC360;
+            --brand-green-dark: #5a9c42;
+            --brand-green-light: #e8f5e0;
+            --brand-green-subtle: #f4faf0;
+            --forest: #1a2e1a;
+            --forest-light: #2d4a2d;
+            --text-primary: #1a1a1a;
+            --text-secondary: #5a5a5a;
+            --text-muted: #8a8a8a;
+            --border: #e0e0e0;
+            --border-light: #f0f0f0;
+            --white: #ffffff;
+            --bg-subtle: #fafafa;
+            --warning: #f59e0b;
+            --warning-bg: #fef3c7;
+            --success: #10b981;
+            --success-bg: #d1fae5;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(180deg, var(--brand-green-subtle) 0%, var(--white) 40%);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        /* Header */
+        .header {
+            background: var(--white);
+            border-bottom: 1px solid var(--border-light);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+        }
+
+        .header-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--brand-green);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo-icon svg {
+            width: 24px;
+            height: 24px;
+            fill: var(--white);
+        }
+
+        .logo-text {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-weight: 700;
+            font-size: 1.25rem;
+            color: var(--forest);
+        }
+
+        .logo-text span {
+            color: var(--brand-green);
+        }
+
+        .header-badge {
+            background: var(--brand-green-light);
+            color: var(--brand-green-dark);
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+        }
+
+        /* Agent Code Section (Optional - at bottom) */
+        .agent-code-section {
+            border-top: 2px dashed var(--border);
+        }
+
+        .agent-code-optional-box {
+            background: var(--bg-subtle);
+            border-radius: 12px;
+            padding: 1.25rem;
+        }
+
+        .agent-code-optional-box>p:first-child {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+        }
+
+        .agent-code-input-row {
+            display: flex;
+            gap: 0.75rem;
+            max-width: 400px;
+        }
+
+        .agent-code-input {
+            flex: 1;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-weight: 600;
+        }
+
+        .agent-code-btn {
+            background: var(--forest);
+            color: var(--white);
+            border: none;
+            padding: 0.875rem 1.5rem;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+
+        .agent-code-btn:hover {
+            background: var(--forest-light);
+        }
+
+        .agent-code-btn:disabled {
+            background: var(--text-muted);
+            cursor: not-allowed;
+        }
+
+        .agent-code-hint {
+            font-size: 0.8rem !important;
+            color: var(--text-muted) !important;
+            margin-top: 0.75rem !important;
+            margin-bottom: 0 !important;
+        }
+
+        .agent-code-error {
+            color: #ef4444;
+            font-size: 0.85rem;
+            margin-top: 0.75rem;
+            display: none;
+        }
+
+        .agent-code-success {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--brand-green-light);
+            color: var(--brand-green-dark);
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .agent-code-success svg {
+            color: var(--brand-green);
+            flex-shrink: 0;
+        }
+
+        /* Hide agent code section when in agent mode via URL */
+        .agent-mode-active .agent-code-section {
+            display: none;
+        }
+
+        /* Hide rep assignment section when in agent mode */
+        .agent-mode-active .rep-assignment {
+            display: none;
+        }
+
+        /* Agent Mode Banner */
+        .agent-mode-banner {
+            background: linear-gradient(135deg, var(--forest) 0%, var(--forest-light) 100%);
+            color: var(--white);
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 15px rgba(26, 46, 26, 0.3);
+        }
+
+        .agent-mode-inner {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+
+        .agent-mode-inner svg {
+            color: var(--brand-green);
+        }
+
+        .agent-mode-inner span {
+            flex: 1;
+        }
+
+        .agent-mode-exit {
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: var(--white);
+            padding: 0.4rem 1rem;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .agent-mode-exit:hover {
+            background: rgba(255, 255, 255, 0.25);
+        }
+
+        /* Main Container */
+        .main-container {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 3rem 1.5rem 4rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .hero-tag {
+            display: inline-block;
+            background: var(--forest);
+            color: var(--brand-green);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.03em;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero h1 {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--forest);
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .hero h1 span {
+            color: var(--brand-green);
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Key Metrics Bar */
+        .metrics-bar {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-bottom: 2.5rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+        }
+
+        .metric {
+            text-align: center;
+            padding: 0.5rem;
+        }
+
+        .metric:not(:last-child) {
+            border-right: 1px solid var(--border-light);
+        }
+
+        .metric-value {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--brand-green);
+        }
+
+        .metric-label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-top: 0.25rem;
+        }
+
+        /* Form Card */
+        .form-card {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+        }
+
+        .form-section {
+            padding: 2rem;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .form-section:last-child {
+            border-bottom: none;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .section-number {
+            width: 32px;
+            height: 32px;
+            background: var(--brand-green);
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+        .section-title {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--forest);
+        }
+
+        .section-subtitle {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-left: auto;
+        }
+
+        /* Form Fields */
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.25rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .form-row.single {
+            grid-template-columns: 1fr;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .form-label {
+            font-weight: 500;
+            font-size: 0.9rem;
+            color: var(--text-primary);
+        }
+
+        .form-label .required {
+            color: #ef4444;
+        }
+
+        .form-input,
+        .form-select {
+            padding: 0.875rem 1rem;
+            border: 1.5px solid var(--border);
+            border-radius: 10px;
+            font-size: 1rem;
+            font-family: inherit;
+            transition: all 0.2s ease;
+            background: var(--white);
+        }
+
+        .form-input:focus,
+        .form-select:focus {
+            outline: none;
+            border-color: var(--brand-green);
+            box-shadow: 0 0 0 3px rgba(126, 195, 96, 0.15);
+        }
+
+        .form-input::placeholder {
+            color: var(--text-muted);
+        }
+
+        .input-with-unit {
+            position: relative;
+        }
+
+        .input-with-unit .form-input {
+            padding-right: 4rem;
+        }
+
+        .input-unit {
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            pointer-events: none;
+        }
+
+        /* Hidden rep fields - no visible styling needed */
+
+        /* Crop Entry */
+        .crops-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .crop-entry {
+            background: var(--bg-subtle);
+            border: 1px solid var(--border-light);
+            border-radius: 12px;
+            padding: 1.5rem;
+            position: relative;
+        }
+
+        .crop-entry-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+
+        .crop-entry-title {
+            font-weight: 600;
+            color: var(--forest);
+        }
+
+        .remove-crop-btn {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            padding: 0.25rem;
+            border-radius: 4px;
+            transition: all 0.2s;
+        }
+
+        .remove-crop-btn:hover {
+            color: #ef4444;
+            background: #fef2f2;
+        }
+
+        .crop-fields {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.25rem;
+        }
+
+        .crop-fields.four-col {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .add-crop-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 1rem;
+            background: var(--brand-green-light);
+            border: 2px dashed var(--brand-green);
+            border-radius: 12px;
+            color: var(--brand-green-dark);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .add-crop-btn:hover {
+            background: var(--brand-green);
+            color: var(--white);
+            border-style: solid;
+        }
+
+        /* Results Section */
+        .results-section {
+            display: none;
+            background: linear-gradient(135deg, var(--forest) 0%, var(--forest-light) 100%);
+            padding: 2.5rem;
+            color: var(--white);
+        }
+
+        .results-section.visible {
+            display: block;
+        }
+
+        .results-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .results-header h2 {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .results-header p {
+            opacity: 0.8;
+        }
+
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .result-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 16px;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .result-card-label {
+            font-size: 0.85rem;
+            opacity: 0.8;
+            margin-bottom: 0.5rem;
+        }
+
+        .result-card-value {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--brand-green);
+        }
+
+        .result-card-sublabel {
+            font-size: 0.8rem;
+            opacity: 0.6;
+            margin-top: 0.25rem;
+        }
+
+        .results-breakdown {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 1.5rem;
+        }
+
+        .breakdown-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .breakdown-row:last-child {
+            border-bottom: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .breakdown-label {
+            opacity: 0.9;
+        }
+
+        .breakdown-value {
+            color: var(--brand-green);
+            font-weight: 600;
+        }
+
+        /* Submit Section */
+        .submit-section {
+            padding: 2rem;
+            background: var(--bg-subtle);
+            text-align: center;
+        }
+
+        .submit-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem 2.5rem;
+            background: var(--brand-green);
+            color: var(--white);
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            font-family: inherit;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 4px 12px rgba(126, 195, 96, 0.3);
+        }
+
+        .submit-btn:hover {
+            background: var(--brand-green-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(126, 195, 96, 0.4);
+        }
+
+        .submit-btn:disabled {
+            background: var(--text-muted);
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .calculate-btn {
+            background: var(--forest);
+            margin-right: 1rem;
+        }
+
+        .calculate-btn:hover {
+            background: var(--forest-light);
+        }
+
+        .submit-note {
+            margin-top: 1rem;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        /* Disclaimer */
+        .disclaimer {
+            background: var(--warning-bg);
+            border: 1px solid var(--warning);
+            border-radius: 12px;
+            padding: 1.25rem;
+            margin-top: 2rem;
+        }
+
+        .disclaimer-title {
+            font-weight: 600;
+            color: var(--warning);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .disclaimer p {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        /* Success Message */
+        .success-message {
+            display: none;
+            text-align: center;
+            padding: 3rem 2rem;
+        }
+
+        .success-message.visible {
+            display: block;
+        }
+
+        .success-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--success-bg);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+        }
+
+        .success-icon svg {
+            width: 40px;
+            height: 40px;
+            stroke: var(--success);
+        }
+
+        .success-message h2 {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 1.75rem;
+            color: var(--forest);
+            margin-bottom: 0.75rem;
+        }
+
+        .success-message p {
+            color: var(--text-secondary);
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .success-details {
+            background: var(--brand-green-light);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+            text-align: left;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .success-details-title {
+            font-weight: 600;
+            color: var(--forest);
+            margin-bottom: 0.75rem;
+        }
+
+        .success-details p {
+            font-size: 0.9rem;
+            margin: 0.25rem 0;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        .footer a {
+            color: var(--brand-green-dark);
+            text-decoration: none;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 1.75rem;
+            }
+
+            .metrics-bar {
+                grid-template-columns: 1fr;
+                gap: 0;
+            }
+
+            .metric {
+                padding: 1rem 0.5rem;
+            }
+
+            .metric:not(:last-child) {
+                border-right: none;
+                border-bottom: 1px solid var(--border-light);
+            }
+
+            .form-row,
+            .crop-fields,
+            .crop-fields.four-col {
+                grid-template-columns: 1fr;
+            }
+
+            .results-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-section {
+                padding: 1.5rem;
+            }
+
+            .rep-assignment {
+                padding: 1.5rem;
+            }
+        }
+
+        /* Loading State */
+        .loading {
+            pointer-events: none;
+            opacity: 0.7;
+        }
+
+        .spinner {
+            width: 20px;
+            height: 20px;
+            border: 2px solid transparent;
+            border-top-color: currentColor;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Report Preview Modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .modal-overlay.visible {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--white);
+            border-radius: 20px;
+            max-width: 600px;
+            width: 100%;
+            max-height: 90vh;
+            overflow: auto;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .modal-header {
+            background: var(--forest);
+            padding: 1.5rem 2rem;
+            color: var(--white);
+        }
+
+        .modal-header h3 {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 1.25rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .modal-header p {
+            opacity: 0.8;
+            font-size: 0.9rem;
+        }
+
+        .modal-body {
+            padding: 2rem;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 1rem;
+            padding: 1.5rem 2rem;
+            background: var(--bg-subtle);
+            border-top: 1px solid var(--border);
+        }
+
+        .modal-actions .submit-btn {
+            flex: 1;
+        }
+
+        .btn-secondary {
+            background: var(--white);
+            color: var(--text-primary);
+            border: 2px solid var(--border);
+            box-shadow: none;
+        }
+
+        .btn-secondary:hover {
+            background: var(--bg-subtle);
+            transform: none;
+            box-shadow: none;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="header">
+        <div class="header-inner">
+            <a href="https://www.cropdefense.com" class="logo">
+                <img src="../logo.png" alt="CropDefense" style="height: 40px;">
+            </a>
+            <span class="header-badge">OMRI Certified • Organic</span>
+        </div>
+    </header>
+
+    <main class="main-container">
+        <!-- Agent Mode Banner (shown when agent code is used) -->
+        <div class="agent-mode-banner" id="agentModeBanner" style="display: none;">
+            <div class="agent-mode-inner">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                    <circle cx="12" cy="7" r="4" />
+                </svg>
+                <span><strong>Agent Mode:</strong> You are entering data on behalf of a client. Report will be sent to
+                    <strong id="agentModeRepName">-</strong></span>
+                <button type="button" class="agent-mode-exit" onclick="exitAgentMode()">Exit Agent Mode</button>
+            </div>
+        </div>
+
+        <section class="hero">
+            <div class="hero-tag">Personalized Savings Analysis</div>
+            <h1>See How CropDefense Can <span>Boost Your Profits</span></h1>
+            <p>Enter your farm's information below and we'll calculate your potential savings from reduced fertilizer
+                costs and increased yields.</p>
+        </section>
+
+        <div class="metrics-bar">
+            <div class="metric">
+                <div class="metric-value">Up to 50%</div>
+                <div class="metric-label">Fertilizer Reduction</div>
+            </div>
+            <div class="metric">
+                <div class="metric-value">Up to 70%</div>
+                <div class="metric-label">Yield Increase</div>
+            </div>
+            <div class="metric">
+                <div class="metric-value">10+ Years</div>
+                <div class="metric-label">Field Tested</div>
+            </div>
+        </div>
+
+        <form id="savingsForm" class="form-card">
+            <!-- Hidden fields for rep data (populated by agent code or URL param) -->
+            <input type="hidden" id="salesRep" name="salesRep" value="">
+            <input type="hidden" id="repEmail" name="repEmail" value="">
+
+            <!-- Section 1: Farm Information -->
+            <div class="form-section">
+                <div class="section-header">
+                    <span class="section-number">1</span>
+                    <span class="section-title">Farm Information</span>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Farm Name <span class="required">*</span></label>
+                        <input type="text" class="form-input" id="farmName" name="farmName"
+                            placeholder="e.g., Johnson Family Farms" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Location <span class="required">*</span></label>
+                        <input type="text" class="form-input" id="farmLocation" name="farmLocation"
+                            placeholder="e.g., Central Valley, CA" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Contact Name <span class="required">*</span></label>
+                        <input type="text" class="form-input" id="contactName" name="contactName"
+                            placeholder="Your full name" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Email Address <span class="required">*</span></label>
+                        <input type="email" class="form-input" id="email" name="email" placeholder="you@example.com"
+                            required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Phone Number</label>
+                        <input type="tel" class="form-input" id="phone" name="phone" placeholder="(555) 123-4567">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Operation Type <span class="required">*</span></label>
+                        <select class="form-select" id="operationType" name="operationType" required>
+                            <option value="">Select type...</option>
+                            <option value="conventional">Conventional</option>
+                            <option value="organic">Organic</option>
+                            <option value="transitioning">Transitioning to Organic</option>
+                            <option value="mixed">Mixed</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 2: Crop Details -->
+            <div class="form-section">
+                <div class="section-header">
+                    <span class="section-number">2</span>
+                    <span class="section-title">Crop Details</span>
+                    <span class="section-subtitle">Add each crop you grow</span>
+                </div>
+
+                <div class="crops-container" id="cropsContainer">
+                    <div class="crop-entry" data-crop-index="0">
+                        <div class="crop-entry-header">
+                            <span class="crop-entry-title">Crop 1</span>
+                        </div>
+                        <div class="crop-fields four-col">
+                            <div class="form-group">
+                                <label class="form-label">Crop Type <span class="required">*</span></label>
+                                <select class="form-select crop-type" name="crops[0][type]" required>
+                                    <option value="">Select crop...</option>
+                                    <option value="corn">Corn</option>
+                                    <option value="soybean">Soybean</option>
+                                    <option value="wheat">Wheat</option>
+                                    <option value="cotton">Cotton</option>
+                                    <option value="alfalfa">Alfalfa</option>
+                                    <option value="rice">Rice</option>
+                                    <option value="barley">Barley</option>
+                                    <option value="sorghum">Sorghum</option>
+                                    <option value="canola">Canola</option>
+                                    <option value="sunflower">Sunflower</option>
+                                    <option value="peanut">Peanut</option>
+                                    <option value="dry_beans">Dry Beans</option>
+                                    <option value="field_peas">Field Peas</option>
+                                    <option value="lentils">Lentils</option>
+                                    <option value="chickpeas">Chickpeas</option>
+                                    <option value="tomatoes">Tomatoes</option>
+                                    <option value="potatoes">Potatoes</option>
+                                    <option value="onions">Onions</option>
+                                    <option value="lettuce">Lettuce/Leafy Greens</option>
+                                    <option value="peppers">Peppers</option>
+                                    <option value="squash">Squash</option>
+                                    <option value="cucumber">Cucumber</option>
+                                    <option value="watermelon">Watermelon</option>
+                                    <option value="berries">Berries</option>
+                                    <option value="sugar_beets">Sugar Beets</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Acreage <span class="required">*</span></label>
+                                <div class="input-with-unit">
+                                    <input type="number" class="form-input crop-acreage" name="crops[0][acreage]"
+                                        placeholder="0" min="1" required>
+                                    <span class="input-unit">acres</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Avg. Yield/Acre <span class="required">*</span></label>
+                                <div class="input-with-unit">
+                                    <input type="number" class="form-input crop-yield" name="crops[0][yield]"
+                                        placeholder="0" min="0" step="0.1" required>
+                                    <span class="input-unit">units</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Price/Unit <span class="required">*</span></label>
+                                <div class="input-with-unit">
+                                    <input type="number" class="form-input crop-price" name="crops[0][price]"
+                                        placeholder="0.00" min="0" step="0.01" required>
+                                    <span class="input-unit">$/unit</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="button" class="add-crop-btn" id="addCropBtn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="12" y1="5" x2="12" y2="19"></line>
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                    </svg>
+                    Add Another Crop
+                </button>
+            </div>
+
+            <!-- Section 3: Current Costs -->
+            <div class="form-section">
+                <div class="section-header">
+                    <span class="section-number">3</span>
+                    <span class="section-title">Current Input Costs</span>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Average Fertilizer Cost per Acre <span
+                                class="required">*</span></label>
+                        <div class="input-with-unit">
+                            <input type="number" class="form-input" id="fertilizerCost" name="fertilizerCost"
+                                placeholder="0.00" min="0" step="0.01" required>
+                            <span class="input-unit">$/acre</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Total Farm Acreage</label>
+                        <div class="input-with-unit">
+                            <input type="number" class="form-input" id="totalAcreage" name="totalAcreage"
+                                placeholder="Auto-calculated" readonly>
+                            <span class="input-unit">acres</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Results Section (Hidden until calculated) -->
+            <div class="results-section" id="resultsSection">
+                <div class="results-header">
+                    <h2>Your Projected Savings</h2>
+                    <p>Based on the information you provided</p>
+                </div>
+
+                <div class="results-grid">
+                    <div class="result-card">
+                        <div class="result-card-label">Fertilizer Savings</div>
+                        <div class="result-card-value" id="fertilizerSavings">$0</div>
+                        <div class="result-card-sublabel">Up to 50% reduction</div>
+                    </div>
+                    <div class="result-card">
+                        <div class="result-card-label">Revenue Increase (Low Est.)</div>
+                        <div class="result-card-value" id="revenueLow">$0</div>
+                        <div class="result-card-sublabel">At 3% yield increase</div>
+                    </div>
+                    <div class="result-card">
+                        <div class="result-card-label">Revenue Increase (High Est.)</div>
+                        <div class="result-card-value" id="revenueHigh">$0</div>
+                        <div class="result-card-sublabel">At 70% yield increase</div>
+                    </div>
+                </div>
+
+                <div class="results-breakdown">
+                    <div class="breakdown-row">
+                        <span class="breakdown-label">Current Annual Revenue</span>
+                        <span class="breakdown-value" id="currentRevenue">$0</span>
+                    </div>
+                    <div class="breakdown-row">
+                        <span class="breakdown-label">Current Fertilizer Costs</span>
+                        <span class="breakdown-value" id="currentFertCost">$0</span>
+                    </div>
+                    <div class="breakdown-row">
+                        <span class="breakdown-label">Potential Profit Increase (Conservative)</span>
+                        <span class="breakdown-value" id="profitIncreaseLow">0%</span>
+                    </div>
+                    <div class="breakdown-row">
+                        <span class="breakdown-label">Potential Profit Increase (Optimistic)</span>
+                        <span class="breakdown-value" id="profitIncreaseHigh">0%</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Submit Section -->
+            <div class="submit-section" id="submitSection">
+                <button type="button" class="submit-btn calculate-btn" id="calculateBtn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="4" y="2" width="16" height="20" rx="2"></rect>
+                        <line x1="8" y1="6" x2="16" y2="6"></line>
+                        <line x1="8" y1="10" x2="16" y2="10"></line>
+                        <line x1="8" y1="14" x2="12" y2="14"></line>
+                    </svg>
+                    Calculate My Savings
+                </button>
+                <button type="submit" class="submit-btn" id="submitBtn" style="display: none;">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M22 2L11 13"></path>
+                        <path d="M22 2L15 22L11 13L2 9L22 2Z"></path>
+                    </svg>
+                    Generate &amp; Send Report
+                </button>
+                <p class="submit-note">Your personalized savings report will be generated and emailed to you</p>
+            </div>
+
+            <!-- Success Message (Hidden until submitted) -->
+            <div class="success-message" id="successMessage">
+                <div class="success-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                        <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                    </svg>
+                </div>
+                <h2 id="successTitle">Report Sent!</h2>
+                <p id="successDescription">Your personalized CropDefense Savings Report has been generated and sent to
+                    your sales representative.</p>
+                <div class="success-details">
+                    <div class="success-details-title">What happens next:</div>
+                    <p id="successDetail1">✓ Your rep <strong id="successRepName">-</strong> has received the report</p>
+                    <p id="successDetail2">✓ They'll review and send it to you momentarily</p>
+                    <p id="successDetail3">✓ You can also download your copy below</p>
+                </div>
+                <button type="button" class="submit-btn" style="margin-top: 1.5rem;" onclick="downloadReport()">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                        <polyline points="7 10 12 15 17 10" />
+                        <line x1="12" y1="15" x2="12" y2="3" />
+                    </svg>
+                    Download PDF Report
+                </button>
+            </div>
+
+            <!-- Optional Agent Code Section -->
+            <div class="form-section agent-code-section" id="agentCodeSection">
+                <div class="section-header">
+                    <span class="section-number" style="background: var(--text-muted);">?</span>
+                    <span class="section-title">Working with a CropDefense Rep?</span>
+                    <span class="section-subtitle">Optional</span>
+                </div>
+
+                <div class="agent-code-optional-box">
+                    <p>If you've been speaking with a CropDefense sales representative, enter their agent code below to
+                        have your report sent directly to them.</p>
+                    <div class="agent-code-input-row">
+                        <input type="text" class="form-input agent-code-input" id="agentCodeInput"
+                            placeholder="e.g., CD-SMITH" maxlength="20">
+                        <button type="button" class="agent-code-btn" id="agentCodeBtn">Apply Code</button>
+                    </div>
+                    <p class="agent-code-hint">Don't have a code? No problem — just select your rep from the dropdown
+                        above, or leave blank to receive the report yourself.</p>
+                    <p class="agent-code-error" id="agentCodeError"></p>
+                    <div class="agent-code-success" id="agentCodeSuccess" style="display: none;">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                            <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                        </svg>
+                        <span>Agent code applied! Report will be sent to <strong id="agentCodeRepName">-</strong></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Disclaimer -->
+            <div class="form-section">
+                <div class="disclaimer">
+                    <div class="disclaimer-title">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="12" y1="8" x2="12" y2="12"></line>
+                            <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                        </svg>
+                        Important Information
+                    </div>
+                    <p>All estimates are based on field trial data and represent potential outcomes. Actual results vary
+                        based on soil conditions, weather, crop variety, and management practices. These projections are
+                        not guarantees of performance. CropDefense products are OMRI certified for organic use.</p>
+                </div>
+            </div>
+        </form>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2026 CropDefense. All rights reserved. | <a href="https://www.cropdefense.com">www.cropdefense.com</a>
+        </p>
+    </footer>
+
+    <!-- Report Preview Modal -->
+    <div class="modal-overlay" id="reportModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Report Ready to Send</h3>
+                <p>Preview your savings report before sending to your rep</p>
+            </div>
+            <div class="modal-body" id="reportPreview">
+                <!-- Preview content inserted here -->
+            </div>
+            <div class="modal-actions">
+                <button type="button" class="submit-btn btn-secondary" onclick="closeModal()">Edit Data</button>
+                <button type="button" class="submit-btn" id="confirmSendBtn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M22 2L11 13"></path>
+                        <path d="M22 2L15 22L11 13L2 9L22 2Z"></path>
+                    </svg>
+                    Send Report Now
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ==================== STATE ====================
+        let cropCount = 1;
+        let calculatedData = null;
+        let agentMode = false;
+        let currentAgent = null;
+        const FERTILIZER_REDUCTION = 0.50;
+        const YIELD_INCREASE_LOW = 0.03;
+        const YIELD_INCREASE_HIGH = 0.70;
+
+        // Agent code database (in production, this would be an API call)
+        const AGENT_CODES = {
+            'CD-SMITH': { id: 'rep_jsmith', name: 'John Smith', email: 'jsmith@cropdefense.com' },
+            'CD-JSMITH': { id: 'rep_jsmith', name: 'John Smith', email: 'jsmith@cropdefense.com' },
+            'CD-JOHNSON': { id: 'rep_mjohnson', name: 'Maria Johnson', email: 'mjohnson@cropdefense.com' },
+            'CD-MJOHNSON': { id: 'rep_mjohnson', name: 'Maria Johnson', email: 'mjohnson@cropdefense.com' },
+            'CD-WILLIAMS': { id: 'rep_dwilliams', name: 'David Williams', email: 'dwilliams@cropdefense.com' },
+            'CD-DWILLIAMS': { id: 'rep_dwilliams', name: 'David Williams', email: 'dwilliams@cropdefense.com' },
+            'CD-BROWN': { id: 'rep_sbrown', name: 'Sarah Brown', email: 'sbrown@cropdefense.com' },
+            'CD-SBROWN': { id: 'rep_sbrown', name: 'Sarah Brown', email: 'sbrown@cropdefense.com' },
+            'CD-GARCIA': { id: 'rep_mgarcia', name: 'Miguel Garcia', email: 'mgarcia@cropdefense.com' },
+            'CD-MGARCIA': { id: 'rep_mgarcia', name: 'Miguel Garcia', email: 'mgarcia@cropdefense.com' },
+        };
+
+        // ==================== ELEMENTS ====================
+        const form = document.getElementById('savingsForm');
+        const cropsContainer = document.getElementById('cropsContainer');
+        const addCropBtn = document.getElementById('addCropBtn');
+        const calculateBtn = document.getElementById('calculateBtn');
+        const submitBtn = document.getElementById('submitBtn');
+        const resultsSection = document.getElementById('resultsSection');
+        const submitSection = document.getElementById('submitSection');
+        const successMessage = document.getElementById('successMessage');
+        const totalAcreageInput = document.getElementById('totalAcreage');
+        const salesRepSelect = document.getElementById('salesRep');
+        const repEmailInput = document.getElementById('repEmail');
+        const reportModal = document.getElementById('reportModal');
+        const confirmSendBtn = document.getElementById('confirmSendBtn');
+        const agentCodeInput = document.getElementById('agentCodeInput');
+        const agentCodeBtn = document.getElementById('agentCodeBtn');
+        const agentCodeSection = document.getElementById('agentCodeSection');
+        const agentModeBanner = document.getElementById('agentModeBanner');
+        const agentCodeError = document.getElementById('agentCodeError');
+        const agentCodeSuccess = document.getElementById('agentCodeSuccess');
+
+        // ==================== AGENT CODE HANDLING ====================
+
+        // Verify agent code (optional - at bottom of form)
+        agentCodeBtn.addEventListener('click', applyAgentCode);
+        agentCodeInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                applyAgentCode();
+            }
+        });
+
+        function applyAgentCode() {
+            const code = agentCodeInput.value.trim().toUpperCase();
+
+            if (!code) {
+                showAgentCodeError('Please enter an agent code');
+                return;
+            }
+
+            // Check if valid code
+            if (AGENT_CODES[code]) {
+                const agent = AGENT_CODES[code];
+
+                // Apply to hidden rep fields
+                salesRepSelect.value = agent.id;
+                repEmailInput.value = agent.email;
+
+                // Store agent name for later use
+                salesRepSelect.dataset.name = agent.name;
+
+                // Show success message
+                agentCodeError.style.display = 'none';
+                agentCodeSuccess.style.display = 'flex';
+                document.getElementById('agentCodeRepName').textContent = agent.name;
+
+                // Update input styling
+                agentCodeInput.style.borderColor = 'var(--brand-green)';
+                agentCodeBtn.textContent = 'Applied ✓';
+                agentCodeBtn.disabled = true;
+                agentCodeBtn.style.background = 'var(--brand-green)';
+            } else {
+                showAgentCodeError('Invalid agent code. Please check and try again.');
+            }
+        }
+
+        function showAgentCodeError(message) {
+            agentCodeError.textContent = message;
+            agentCodeError.style.display = 'block';
+            agentCodeSuccess.style.display = 'none';
+            agentCodeInput.style.borderColor = '#ef4444';
+        }
+
+        // Full agent mode (activated via URL param only - for reps entering data themselves)
+        function activateAgentMode(agent) {
+            agentMode = true;
+            currentAgent = agent;
+
+            // Update UI
+            document.querySelector('.main-container').classList.add('agent-mode-active');
+            agentModeBanner.style.display = 'block';
+            document.getElementById('agentModeRepName').textContent = agent.name;
+
+            // Pre-fill rep selection
+            salesRepSelect.value = agent.id;
+            repEmailInput.value = agent.email;
+
+            // Update hero text for agent mode
+            document.querySelector('.hero h1').innerHTML = 'Enter Client Data for <span>Savings Report</span>';
+            document.querySelector('.hero p').textContent = 'Fill in the client\'s farm information below. The report will be generated and sent to your email.';
+
+            // Update submit button text
+            submitBtn.innerHTML = `
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M22 2L11 13"></path>
+                    <path d="M22 2L15 22L11 13L2 9L22 2Z"></path>
+                </svg>
+                Generate Report &amp; Send to Me
+            `;
+
+            // Scroll to form
+            document.querySelector('.metrics-bar').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function exitAgentMode() {
+            agentMode = false;
+            currentAgent = null;
+
+            // Reset UI
+            document.querySelector('.main-container').classList.remove('agent-mode-active');
+            agentModeBanner.style.display = 'none';
+
+            // Reset hero text
+            document.querySelector('.hero h1').innerHTML = 'See How CropDefense Can <span>Boost Your Profits</span>';
+            document.querySelector('.hero p').textContent = 'Enter your farm\'s information below and we\'ll calculate your potential savings from reduced fertilizer costs and increased yields.';
+
+            // Reset rep selection
+            salesRepSelect.value = '';
+            repEmailInput.value = '';
+
+            // Reset submit button
+            submitBtn.innerHTML = `
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M22 2L11 13"></path>
+                    <path d="M22 2L15 22L11 13L2 9L22 2Z"></path>
+                </svg>
+                Generate Report &amp; Send to My Rep
+            `;
+        }
+
+        // ==================== SALES REP HANDLING ====================
+
+        // URL params (used for both rep and agent code)
+        const urlParams = new URLSearchParams(window.location.search);
+
+        // Check URL for agent code (e.g., ?agent=CD-SMITH) - activates full agent mode
+        const agentCodeParam = urlParams.get('agent');
+        if (agentCodeParam) {
+            const code = agentCodeParam.toUpperCase();
+            if (AGENT_CODES[code]) {
+                activateAgentMode(AGENT_CODES[code]);
+            }
+        }
+
+        // Check URL params for pre-assigned rep (e.g., ?rep=rep_jsmith)
+        const preAssignedRep = urlParams.get('rep');
+        if (preAssignedRep && AGENT_CODES['CD-' + preAssignedRep.replace('rep_', '').toUpperCase()]) {
+            // Find the agent by rep ID
+            const agentEntry = Object.entries(AGENT_CODES).find(([code, agent]) => agent.id === preAssignedRep);
+            if (agentEntry) {
+                const agent = agentEntry[1];
+                salesRepSelect.value = agent.id;
+                salesRepSelect.dataset.name = agent.name;
+                repEmailInput.value = agent.email;
+            }
+        }
+
+        // ==================== CROP MANAGEMENT ====================
+
+        addCropBtn.addEventListener('click', () => {
+            cropCount++;
+            const cropEntry = document.createElement('div');
+            cropEntry.className = 'crop-entry';
+            cropEntry.dataset.cropIndex = cropCount - 1;
+            cropEntry.innerHTML = `
+                <div class="crop-entry-header">
+                    <span class="crop-entry-title">Crop ${cropCount}</span>
+                    <button type="button" class="remove-crop-btn" onclick="removeCrop(this)">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                    </button>
+                </div>
+                <div class="crop-fields four-col">
+                    <div class="form-group">
+                        <label class="form-label">Crop Type <span class="required">*</span></label>
+                        <select class="form-select crop-type" name="crops[${cropCount - 1}][type]" required>
+                            <option value="">Select crop...</option>
+                            <option value="corn">Corn</option>
+                            <option value="soybean">Soybean</option>
+                            <option value="wheat">Wheat</option>
+                            <option value="cotton">Cotton</option>
+                            <option value="alfalfa">Alfalfa</option>
+                            <option value="rice">Rice</option>
+                            <option value="barley">Barley</option>
+                            <option value="sorghum">Sorghum</option>
+                            <option value="canola">Canola</option>
+                            <option value="sunflower">Sunflower</option>
+                            <option value="peanut">Peanut</option>
+                            <option value="dry_beans">Dry Beans</option>
+                            <option value="field_peas">Field Peas</option>
+                            <option value="lentils">Lentils</option>
+                            <option value="chickpeas">Chickpeas</option>
+                            <option value="tomatoes">Tomatoes</option>
+                            <option value="potatoes">Potatoes</option>
+                            <option value="onions">Onions</option>
+                            <option value="lettuce">Lettuce/Leafy Greens</option>
+                            <option value="peppers">Peppers</option>
+                            <option value="squash">Squash</option>
+                            <option value="cucumber">Cucumber</option>
+                            <option value="watermelon">Watermelon</option>
+                            <option value="berries">Berries</option>
+                            <option value="sugar_beets">Sugar Beets</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Acreage <span class="required">*</span></label>
+                        <div class="input-with-unit">
+                            <input type="number" class="form-input crop-acreage" name="crops[${cropCount - 1}][acreage]" placeholder="0" min="1" required>
+                            <span class="input-unit">acres</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Avg. Yield/Acre <span class="required">*</span></label>
+                        <div class="input-with-unit">
+                            <input type="number" class="form-input crop-yield" name="crops[${cropCount - 1}][yield]" placeholder="0" min="0" step="0.1" required>
+                            <span class="input-unit">units</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Price/Unit <span class="required">*</span></label>
+                        <div class="input-with-unit">
+                            <input type="number" class="form-input crop-price" name="crops[${cropCount - 1}][price]" placeholder="0.00" min="0" step="0.01" required>
+                            <span class="input-unit">$/unit</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+            cropsContainer.appendChild(cropEntry);
+            updateTotalAcreage();
+        });
+
+        function removeCrop(btn) {
+            const entry = btn.closest('.crop-entry');
+            entry.remove();
+            updateCropNumbers();
+            updateTotalAcreage();
+        }
+
+        function updateCropNumbers() {
+            const entries = cropsContainer.querySelectorAll('.crop-entry');
+            entries.forEach((entry, index) => {
+                entry.querySelector('.crop-entry-title').textContent = `Crop ${index + 1}`;
+                entry.dataset.cropIndex = index;
+            });
+            cropCount = entries.length;
+        }
+
+        function updateTotalAcreage() {
+            const acreageInputs = document.querySelectorAll('.crop-acreage');
+            let total = 0;
+            acreageInputs.forEach(input => {
+                total += parseFloat(input.value) || 0;
+            });
+            totalAcreageInput.value = total || '';
+        }
+
+        cropsContainer.addEventListener('input', (e) => {
+            if (e.target.classList.contains('crop-acreage')) {
+                updateTotalAcreage();
+            }
+        });
+
+        // ==================== FORMATTING ====================
+
+        function formatCurrency(num) {
+            return '$' + num.toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+        }
+
+        // ==================== CALCULATIONS ====================
+
+        calculateBtn.addEventListener('click', () => {
+            // Validate required fields
+            const requiredFields = form.querySelectorAll('[required]');
+            let valid = true;
+            requiredFields.forEach(field => {
+                if (!field.value) {
+                    field.style.borderColor = '#ef4444';
+                    valid = false;
+                } else {
+                    field.style.borderColor = '';
+                }
+            });
+
+            if (!valid) {
+                alert('Please fill in all required fields.');
+                return;
+            }
+
+            // Get values
+            const fertilizerCostPerAcre = parseFloat(document.getElementById('fertilizerCost').value) || 0;
+            const totalAcreage = parseFloat(totalAcreageInput.value) || 0;
+
+            // Calculate crop revenue
+            let totalCurrentRevenue = 0;
+            const crops = [];
+            const cropEntries = document.querySelectorAll('.crop-entry');
+            cropEntries.forEach(entry => {
+                const acreage = parseFloat(entry.querySelector('.crop-acreage').value) || 0;
+                const yieldPerAcre = parseFloat(entry.querySelector('.crop-yield').value) || 0;
+                const pricePerUnit = parseFloat(entry.querySelector('.crop-price').value) || 0;
+                const cropType = entry.querySelector('.crop-type').value;
+                const revenue = acreage * yieldPerAcre * pricePerUnit;
+                totalCurrentRevenue += revenue;
+                crops.push({
+                    type: cropType,
+                    acreage: acreage,
+                    yieldPerAcre: yieldPerAcre,
+                    pricePerUnit: pricePerUnit,
+                    revenue: revenue
+                });
+            });
+
+            // Calculate savings
+            const totalFertilizerCost = totalAcreage * fertilizerCostPerAcre;
+            const fertilizerSavings = totalFertilizerCost * FERTILIZER_REDUCTION;
+            const revenueLow = totalCurrentRevenue * YIELD_INCREASE_LOW;
+            const revenueHigh = totalCurrentRevenue * YIELD_INCREASE_HIGH;
+
+            // Calculate profit increase percentages
+            const profitIncreaseLow = ((fertilizerSavings + revenueLow) / totalCurrentRevenue * 100).toFixed(1);
+            const profitIncreaseHigh = ((fertilizerSavings + revenueHigh) / totalCurrentRevenue * 100).toFixed(1);
+
+            // Store calculated data for report generation
+            calculatedData = {
+                farmName: document.getElementById('farmName').value,
+                farmLocation: document.getElementById('farmLocation').value,
+                contactName: document.getElementById('contactName').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                operationType: document.getElementById('operationType').value,
+                salesRepId: salesRepSelect.value || '',
+                salesRepName: salesRepSelect.dataset.name || '',
+                salesRepEmail: repEmailInput.value || '',
+                totalAcreage: totalAcreage,
+                fertilizerCostPerAcre: fertilizerCostPerAcre,
+                crops: crops,
+                calculations: {
+                    totalCurrentRevenue: totalCurrentRevenue,
+                    totalFertilizerCost: totalFertilizerCost,
+                    fertilizerSavings: fertilizerSavings,
+                    revenueLow: revenueLow,
+                    revenueHigh: revenueHigh,
+                    profitIncreaseLow: profitIncreaseLow,
+                    profitIncreaseHigh: profitIncreaseHigh
+                }
+            };
+
+            // Update results display
+            document.getElementById('fertilizerSavings').textContent = formatCurrency(fertilizerSavings);
+            document.getElementById('revenueLow').textContent = formatCurrency(revenueLow);
+            document.getElementById('revenueHigh').textContent = formatCurrency(revenueHigh);
+            document.getElementById('currentRevenue').textContent = formatCurrency(totalCurrentRevenue);
+            document.getElementById('currentFertCost').textContent = formatCurrency(totalFertilizerCost);
+            document.getElementById('profitIncreaseLow').textContent = profitIncreaseLow + '%';
+            document.getElementById('profitIncreaseHigh').textContent = profitIncreaseHigh + '%';
+
+            // Show results
+            resultsSection.classList.add('visible');
+            submitBtn.style.display = 'inline-flex';
+            calculateBtn.style.display = 'none';
+
+            // Scroll to results
+            resultsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+
+        // ==================== PDF GENERATION ====================
+
+        function generatePDFReport(data) {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF({
+                orientation: 'portrait',
+                unit: 'pt',
+                format: 'letter'
+            });
+
+            const pageWidth = doc.internal.pageSize.getWidth();
+            const pageHeight = doc.internal.pageSize.getHeight();
+            const margin = 50;
+            let y = 0;
+
+            // Colors
+            const brandGreen = [126, 195, 96];
+            const forest = [26, 46, 26];
+            const textDark = [26, 26, 26];
+            const textGray = [100, 100, 100];
+
+            // Header background
+            doc.setFillColor(...forest);
+            doc.rect(0, 0, pageWidth, 100, 'F');
+
+            // Green accent bar
+            doc.setFillColor(...brandGreen);
+            doc.rect(0, 100, pageWidth, 6, 'F');
+
+            // Logo placeholder
+            doc.setFillColor(...brandGreen);
+            doc.roundedRect(margin, 25, 40, 40, 5, 5, 'F');
+            doc.setTextColor(255, 255, 255);
+            doc.setFontSize(24);
+            doc.text('✓', margin + 14, 52);
+
+            // Title
+            doc.setTextColor(255, 255, 255);
+            doc.setFontSize(22);
+            doc.setFont('helvetica', 'bold');
+            doc.text('CropDefense', margin + 55, 45);
+            doc.setTextColor(...brandGreen);
+            doc.text('Savings Report', margin + 175, 45);
+
+            // Farm name subtitle
+            doc.setTextColor(200, 220, 200);
+            doc.setFontSize(12);
+            doc.setFont('helvetica', 'normal');
+            doc.text(`Prepared for ${data.farmName}`, margin + 55, 65);
+
+            // Date
+            doc.setFontSize(10);
+            doc.text(new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }), margin + 55, 82);
+
+            y = 140;
+
+            // Executive Summary Box
+            doc.setFillColor(244, 250, 240);
+            doc.roundedRect(margin, y, pageWidth - (margin * 2), 80, 8, 8, 'F');
+            doc.setDrawColor(...brandGreen);
+            doc.setLineWidth(1.5);
+            doc.roundedRect(margin, y, pageWidth - (margin * 2), 80, 8, 8, 'S');
+
+            doc.setTextColor(...forest);
+            doc.setFontSize(14);
+            doc.setFont('helvetica', 'bold');
+            doc.text('Executive Summary', margin + 15, y + 25);
+
+            doc.setTextColor(...textDark);
+            doc.setFontSize(11);
+            doc.setFont('helvetica', 'normal');
+            const summaryText = `Based on your farm data, adopting CropDefense could increase your overall profitability by approximately ${data.calculations.profitIncreaseLow}% to ${data.calculations.profitIncreaseHigh}% through reduced fertilizer costs and improved yields.`;
+            const summaryLines = doc.splitTextToSize(summaryText, pageWidth - (margin * 2) - 30);
+            doc.text(summaryLines, margin + 15, y + 45);
+
+            y += 100;
+
+            // Key Metrics Section
+            doc.setTextColor(...forest);
+            doc.setFontSize(14);
+            doc.setFont('helvetica', 'bold');
+            doc.text('Projected Savings', margin, y + 20);
+
+            y += 35;
+
+            // Three metric boxes
+            const boxWidth = (pageWidth - (margin * 2) - 30) / 3;
+            const metrics = [
+                { label: 'Fertilizer Savings', value: formatCurrency(data.calculations.fertilizerSavings), sub: 'Up to 50% reduction' },
+                { label: 'Revenue Increase (Low)', value: formatCurrency(data.calculations.revenueLow), sub: 'At 3% yield increase' },
+                { label: 'Revenue Increase (High)', value: formatCurrency(data.calculations.revenueHigh), sub: 'At 70% yield increase' }
+            ];
+
+            metrics.forEach((metric, i) => {
+                const x = margin + (i * (boxWidth + 15));
+
+                doc.setFillColor(...forest);
+                doc.roundedRect(x, y, boxWidth, 75, 6, 6, 'F');
+
+                doc.setTextColor(200, 200, 200);
+                doc.setFontSize(9);
+                doc.setFont('helvetica', 'normal');
+                doc.text(metric.label, x + 12, y + 20);
+
+                doc.setTextColor(...brandGreen);
+                doc.setFontSize(20);
+                doc.setFont('helvetica', 'bold');
+                doc.text(metric.value, x + 12, y + 48);
+
+                doc.setTextColor(150, 150, 150);
+                doc.setFontSize(8);
+                doc.setFont('helvetica', 'normal');
+                doc.text(metric.sub, x + 12, y + 65);
+            });
+
+            y += 95;
+
+            // Farm Details Section
+            doc.setTextColor(...forest);
+            doc.setFontSize(14);
+            doc.setFont('helvetica', 'bold');
+            doc.text('Farm Details', margin, y + 20);
+
+            y += 35;
+
+            doc.setFillColor(250, 250, 250);
+            doc.roundedRect(margin, y, pageWidth - (margin * 2), 100, 6, 6, 'F');
+
+            const details = [
+                ['Farm Name:', data.farmName],
+                ['Location:', data.farmLocation],
+                ['Operation Type:', data.operationType.charAt(0).toUpperCase() + data.operationType.slice(1)],
+                ['Total Acreage:', `${data.totalAcreage.toLocaleString()} acres`],
+                ['Fertilizer Cost/Acre:', `$${data.fertilizerCostPerAcre}`]
+            ];
+
+            doc.setFontSize(10);
+            details.forEach((detail, i) => {
+                const row = Math.floor(i / 2);
+                const col = i % 2;
+                const x = margin + 15 + (col * 250);
+                const detailY = y + 25 + (row * 25);
+
+                doc.setTextColor(...textGray);
+                doc.setFont('helvetica', 'normal');
+                doc.text(detail[0], x, detailY);
+
+                doc.setTextColor(...textDark);
+                doc.setFont('helvetica', 'bold');
+                doc.text(detail[1], x + 100, detailY);
+            });
+
+            y += 120;
+
+            // Crop Breakdown
+            doc.setTextColor(...forest);
+            doc.setFontSize(14);
+            doc.setFont('helvetica', 'bold');
+            doc.text('Crop Breakdown', margin, y + 20);
+
+            y += 35;
+
+            // Table header
+            doc.setFillColor(...forest);
+            doc.rect(margin, y, pageWidth - (margin * 2), 25, 'F');
+            doc.setTextColor(255, 255, 255);
+            doc.setFontSize(9);
+            doc.setFont('helvetica', 'bold');
+            doc.text('Crop', margin + 10, y + 16);
+            doc.text('Acreage', margin + 150, y + 16);
+            doc.text('Yield/Acre', margin + 230, y + 16);
+            doc.text('Price/Unit', margin + 320, y + 16);
+            doc.text('Revenue', margin + 410, y + 16);
+
+            y += 25;
+
+            // Table rows
+            data.crops.forEach((crop, i) => {
+                const bgColor = i % 2 === 0 ? [255, 255, 255] : [250, 250, 250];
+                doc.setFillColor(...bgColor);
+                doc.rect(margin, y, pageWidth - (margin * 2), 22, 'F');
+
+                doc.setTextColor(...textDark);
+                doc.setFontSize(9);
+                doc.setFont('helvetica', 'normal');
+                doc.text(crop.type.charAt(0).toUpperCase() + crop.type.slice(1).replace('_', ' '), margin + 10, y + 15);
+                doc.text(crop.acreage.toLocaleString(), margin + 150, y + 15);
+                doc.text(crop.yieldPerAcre.toLocaleString(), margin + 230, y + 15);
+                doc.text('$' + crop.pricePerUnit.toFixed(2), margin + 320, y + 15);
+                doc.setFont('helvetica', 'bold');
+                doc.text(formatCurrency(crop.revenue), margin + 410, y + 15);
+
+                y += 22;
+            });
+
+            // Total row
+            doc.setFillColor(...brandGreen);
+            doc.rect(margin, y, pageWidth - (margin * 2), 25, 'F');
+            doc.setTextColor(255, 255, 255);
+            doc.setFontSize(10);
+            doc.setFont('helvetica', 'bold');
+            doc.text('Total Current Revenue', margin + 10, y + 16);
+            doc.text(formatCurrency(data.calculations.totalCurrentRevenue), margin + 410, y + 16);
+
+            y += 45;
+
+            // Disclaimer
+            doc.setFillColor(254, 243, 199);
+            doc.roundedRect(margin, y, pageWidth - (margin * 2), 55, 6, 6, 'F');
+            doc.setDrawColor(245, 158, 11);
+            doc.setLineWidth(1);
+            doc.roundedRect(margin, y, pageWidth - (margin * 2), 55, 6, 6, 'S');
+
+            doc.setTextColor(180, 120, 30);
+            doc.setFontSize(10);
+            doc.setFont('helvetica', 'bold');
+            doc.text('Important Information', margin + 15, y + 18);
+
+            doc.setTextColor(100, 80, 50);
+            doc.setFontSize(8);
+            doc.setFont('helvetica', 'normal');
+            const disclaimer = 'All estimates are based on field trial data and represent potential outcomes. Actual results vary based on soil conditions, weather, crop variety, and management practices. These projections are not guarantees of performance. CropDefense products are OMRI certified for organic use.';
+            const disclaimerLines = doc.splitTextToSize(disclaimer, pageWidth - (margin * 2) - 30);
+            doc.text(disclaimerLines, margin + 15, y + 32);
+
+            // Footer
+            doc.setFillColor(...forest);
+            doc.rect(0, pageHeight - 40, pageWidth, 40, 'F');
+            doc.setTextColor(150, 150, 150);
+            doc.setFontSize(8);
+            doc.text('© 2026 CropDefense  •  www.cropdefense.com  •  OMRI Certified Organic', margin, pageHeight - 18);
+            if (data.salesRepName) {
+                doc.text(`Prepared by: ${data.salesRepName}`, pageWidth - margin - 120, pageHeight - 18);
+            }
+
+            return doc;
+        }
+
+        // ==================== MODAL HANDLING ====================
+
+        function showModal() {
+            // Build preview content
+            const preview = document.getElementById('reportPreview');
+            const hasRep = calculatedData.salesRepName && calculatedData.salesRepEmail;
+
+            let sendingToHtml = '';
+            if (hasRep) {
+                sendingToHtml = `
+                    <div style="background: #1a2e1a; color: white; border-radius: 8px; padding: 1rem;">
+                        <div style="font-size: 0.85rem; opacity: 0.8; margin-bottom: 0.25rem;">Sending to:</div>
+                        <div style="font-weight: 600;">${calculatedData.salesRepName}</div>
+                        <div style="font-size: 0.85rem; opacity: 0.7;">${calculatedData.salesRepEmail}</div>
+                    </div>
+                `;
+            } else {
+                sendingToHtml = `
+                    <div style="background: #f4faf0; border: 2px solid #7EC360; border-radius: 8px; padding: 1rem;">
+                        <div style="font-size: 0.85rem; color: #5a9c42; margin-bottom: 0.25rem;">Your report will be sent to:</div>
+                        <div style="font-weight: 600; color: #1a2e1a;">${calculatedData.email}</div>
+                    </div>
+                `;
+            }
+
+            preview.innerHTML = `
+                <div style="padding: 0.5rem;">
+                    <p style="margin-bottom: 1rem; color: #5a5a5a;">Report for <strong>${calculatedData.farmName}</strong></p>
+                    <div style="background: #f4faf0; border-radius: 8px; padding: 1rem; margin-bottom: 1rem;">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                            <span>Fertilizer Savings:</span>
+                            <strong style="color: #7EC360;">${formatCurrency(calculatedData.calculations.fertilizerSavings)}</strong>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                            <span>Revenue Increase (Low):</span>
+                            <strong style="color: #7EC360;">${formatCurrency(calculatedData.calculations.revenueLow)}</strong>
+                        </div>
+                        <div style="display: flex; justify-content: space-between;">
+                            <span>Revenue Increase (High):</span>
+                            <strong style="color: #7EC360;">${formatCurrency(calculatedData.calculations.revenueHigh)}</strong>
+                        </div>
+                    </div>
+                    ${sendingToHtml}
+                </div>
+            `;
+            reportModal.classList.add('visible');
+        }
+
+        function closeModal() {
+            reportModal.classList.remove('visible');
+        }
+
+        // Close modal on overlay click
+        reportModal.addEventListener('click', (e) => {
+            if (e.target === reportModal) {
+                closeModal();
+            }
+        });
+
+        // ==================== FORM SUBMISSION ====================
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            if (!calculatedData) return;
+            showModal();
+        });
+
+        confirmSendBtn.addEventListener('click', async () => {
+            confirmSendBtn.disabled = true;
+            confirmSendBtn.innerHTML = '<span class="spinner"></span> Generating & Sending...';
+
+            try {
+                // Generate PDF
+                const pdfDoc = generatePDFReport(calculatedData);
+                const pdfBlob = pdfDoc.output('blob');
+                const pdfBase64 = await blobToBase64(pdfBlob);
+
+                // Prepare payload for backend/webhook
+                const payload = {
+                    ...calculatedData,
+                    pdfBase64: pdfBase64,
+                    timestamp: new Date().toISOString()
+                };
+
+                // Send to Zapier webhook (no-cors mode for local testing)
+                // LINE 1970-1980: WEBHOOK CONFIGURATION
+                try {
+                    await fetch('https://hooks.zapier.com/hooks/catch/26236551/ul27glx/', {
+                        method: 'POST',
+                        mode: 'no-cors',
+                        headers: { 'Content-Type': 'text/plain' },
+                        body: JSON.stringify(payload)
+                    });
+                } catch (e) {
+                    console.log('Webhook sent (no-cors mode)');
+                }
+
+                // Also save PDF locally for user download
+                pdfDoc.save(`CropDefense_Savings_Report_${calculatedData.farmName.replace(/\s+/g, '_')}.pdf`);
+
+                // Show success
+                closeModal();
+
+                const hasRep = calculatedData.salesRepName && calculatedData.salesRepEmail;
+
+                // Update success message based on context
+                if (agentMode) {
+                    document.getElementById('successTitle').textContent = 'Report Generated!';
+                    document.getElementById('successDescription').textContent = `The savings report for ${calculatedData.farmName} has been sent to your email.`;
+                    document.getElementById('successDetail1').innerHTML = `✓ Report sent to <strong>${calculatedData.salesRepEmail}</strong>`;
+                    document.getElementById('successDetail2').textContent = '✓ Forward to your client when ready';
+                    document.getElementById('successDetail3').textContent = '✓ Contact + Deal created in HubSpot';
+                } else if (hasRep) {
+                    document.getElementById('successTitle').textContent = 'Report Sent!';
+                    document.getElementById('successDescription').textContent = 'Your personalized CropDefense Savings Report has been generated and sent to your sales representative.';
+                    document.getElementById('successDetail1').innerHTML = `✓ Your rep <strong>${calculatedData.salesRepName}</strong> has received the report`;
+                    document.getElementById('successDetail2').textContent = "✓ They'll review and send it to you momentarily";
+                    document.getElementById('successDetail3').textContent = '✓ You can also download your copy below';
+                } else {
+                    // No rep assigned - report goes directly to client
+                    document.getElementById('successTitle').textContent = 'Report Ready!';
+                    document.getElementById('successDescription').textContent = `Your personalized CropDefense Savings Report for ${calculatedData.farmName} has been generated.`;
+                    document.getElementById('successDetail1').innerHTML = `✓ Report sent to <strong>${calculatedData.email}</strong>`;
+                    document.getElementById('successDetail2').textContent = '✓ A CropDefense representative will follow up soon';
+                    document.getElementById('successDetail3').textContent = '✓ Download your copy below';
+                }
+
+                submitSection.style.display = 'none';
+                resultsSection.style.display = 'none';
+                successMessage.classList.add('visible');
+                successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+                console.log('Report submitted:', payload);
+
+            } catch (error) {
+                console.error('Submission error:', error);
+                alert('There was an error generating the report. Please try again.');
+                confirmSendBtn.disabled = false;
+                confirmSendBtn.innerHTML = `
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M22 2L11 13"></path>
+                        <path d="M22 2L15 22L11 13L2 9L22 2Z"></path>
+                    </svg>
+                    Send Report Now
+                `;
+            }
+        });
+
+        // Helper function to convert blob to base64
+        function blobToBase64(blob) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onloadend = () => resolve(reader.result.split(',')[1]);
+                reader.onerror = reject;
+                reader.readAsDataURL(blob);
+            });
+        }
+
+        // Download report function
+        let lastGeneratedPdf = null;
+        function downloadReport() {
+            if (calculatedData) {
+                const pdfDoc = generatePDFReport(calculatedData);
+                pdfDoc.save(`CropDefense_Savings_Report_${calculatedData.farmName.replace(/\s+/g, '_')}.pdf`);
+            }
+        }
+    </script>
+</body>
+
+</html>

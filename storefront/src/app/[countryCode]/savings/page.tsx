@@ -1,7 +1,7 @@
 "use client"
 
 import React, { useState, useEffect, useRef } from "react"
-import "../../styles/savings-page.css"
+import "../../../styles/savings-page.css"
 import Script from "next/script"
 
 export default function SavingsPage() {
